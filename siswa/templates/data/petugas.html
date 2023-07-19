@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content %}
+<style>
+    tbody {
+        overflow-y: 0;
+    }
+</style>
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title">
+                            <a href="{% url 'create_petugas' %}" type="button" class="btn btn-rounded btn-outline-secondary icon-note menu-icon"> Tambah Petugas</a>
+                        </div>
+                      
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>                 
+                                        <th>No</th>
+                                        <th>Username</th>
+                                        <th>Nama Petugas</th>
+                                        <th>No Telepon</th>
+                                        <th>Status</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for pgn in petugas %}
+                                        <tr>
+                                            <th>{{ forloop.counter }}</th>
+                                            <td>{{ pgn.user }}</td>
+                                            <td>{{ pgn.nama_petugas }}</td>
+                                            <td>{{ pgn.no_telpon }}</td>
+                                            <td>{{ pgn.status }}</td>
+                                            <td><a href="{% url 'delete_petugas' pgn.id %}" class="btn btn-danger btn-sm">Hapus</a></td>
+                                        </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
