@@ -26,11 +26,11 @@
 
         <div class="nav-header">
             <div class="brand-logo">
-                <a href="index.html">
-                    <b class="logo-abbr"><img src="{% static 'public/images/PONDOK1.PNG' %}" width="80" alt=""> </b>
-                    <span class="logo-compact"><img src="{% static 'public/images/PONDOK1.JPG' %}" alt=""></span>
+                <a href="#">
+                    <b class="logo-abbr"><img src="{% static 'public/images/logo.jpeg' %}" width="80" alt=""> </b>
+                    <span class="logo-compact"><img src="{% static 'public/images/logo.jpeg' %}" alt=""></span>
                     <span class="brand-title">
-                        <img src="{% static 'public/images/logo.svg' %}" href="{% url 'beranda' %}" alt="">
+                        <img src="{% static 'public/images/logo.jpeg' %}" width="50px" height="50px" href="{% url 'beranda' %}" alt="">
                     </span>
                 </a>
             </div>
@@ -67,7 +67,7 @@
             </div>
         </div>
         {% include "navbar.html" %}
-        <div class="" style="background-image: url('{% static 'public/images/sabilul_hasan.jpg' %}')">
+        <div class="" style="background-size: cover; background-image: url('{% static 'public/images/sekolas.jpeg' %}')">
             {% block content %}
 
             {% endblock content %}
