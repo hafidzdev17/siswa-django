@@ -1,0 +1,73 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+<style>
+  tbody {
+    overflow-y: 0;
+  }
+</style>
+<div class="content-body">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg">
+        <div class="card">
+          <div class="card-body">
+            <div class="card-title">
+              <a
+                href="{% url 'create_kelas'  %}"
+                type="button"
+                class="btn btn-rounded btn-outline-secondary icon-note menu-icon"
+              >
+                Tambah Kelas
+              </a>
+            </div>
+            <div class="col">
+              <div class="card card-body">
+                <form method="get">
+                  <div class="row">
+                    <div></div>
+                    <button class="btn btn-primary" type="submit">
+                      Search
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Nama Kelas</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for kelas in kelas %}
+                  <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ kelas.nama_kelas }}</td>
+                    <td>{{ kelas.status_kelas }}</td>
+                    <td>
+                      <a
+                        class="btn btn-info btn-sm"
+                        href="{% url 'update_kelas' kelas.id %}"
+                        >Edit</a
+                      >
+                      <a
+                        class="btn btn-danger btn-sm"
+                        href="{% url 'delete_kelas' kelas.id %}"
+                        >Hapus</a
+                      >
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

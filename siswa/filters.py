@@ -2,19 +2,19 @@ import django_filters
 from django_filters import DateFilter, CharFilter
 from .models import *
 
-class WaliSantriFilter(django_filters.FilterSet):
-    nama_wali = CharFilter(field_name="nama_wali", lookup_expr='icontains')
+class KelasFilter(django_filters.FilterSet):
+    nama_kelas = CharFilter(field_name="nama_kelas", lookup_expr='icontains')
 
     class Meta:
-        model = WaliSantri
-        fields = ['nama_wali']
+        model = Kelas
+        fields = ['nama_kelas']
 
-class SantriFilter(django_filters.FilterSet):
-    nama_santri = CharFilter(field_name="nama_santri", lookup_expr='icontains')
+class SiswaFilter(django_filters.FilterSet):
+    nama = CharFilter(field_name="nama", lookup_expr='icontains')
 
     class Meta:
-        model = Santri
-        fields = ['nama_santri']
+        model = Siswa
+        fields = ['nama']
 
 class PelanggaranFilter(django_filters.FilterSet):
     tglmulai = DateFilter(field_name="kejadian", lookup_expr='gte')

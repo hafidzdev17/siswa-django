@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'pembayaran.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'santri',
+        'NAME': 'siswa',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': '127.0.0.1',

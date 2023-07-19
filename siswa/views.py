@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from .models import *
 from .forms import *
 from django.http import HttpResponse
-from .filters import WaliSantriFilter, SantriFilter, PelanggaranFilter
+from .filters import KelasFilter, SiswaFilter, PelanggaranFilter
 from .resource import PelanggaranResource
 from django.core.paginator import Paginator
 from django.contrib import messages
@@ -14,14 +14,6 @@ from django.contrib.auth.models import User
 # from .decorators import tolakhalaman_ini, ijinkan_pengguna, pilihan_login
 # Create your views here.
 
-# def autocomplete(request):
-#     if 'term' in request.GET:
-#         qs = Santri.objects.filter(title__icontains=request.GET.get('term'))
-#         title = list()
-#         for santri in qs:
-#             titles.append(santri.title)
-#         return JsonResponse(titles, safe=False)
-#     return render(request, 'templates/base.html')
 
 def getfoto(request):
     santri = Santri.objects.get(id=request.GET.get('pk'))
@@ -54,8 +46,8 @@ def beranda(request):
     berat = list_pelanggaran.filter(kategory='Berat').count()
     total = list_pelanggaran.count()
     context = {
-        'menu' : 'beranda',
-        'page' : 'Selamat datang di beranda',
+        'menu' : 'Beranda',
+        'page' : 'Selamat Datang Di Beranda',
         'plnringan' : ringan,
         'plnsedang' : sedang,
         'plnberat' : berat,
@@ -97,127 +89,107 @@ def logoutPage(request):
     logout(request)
     return redirect('login')
 
-# @ijinkan_pengguna(yang_diizinkan=['admin']) 
-# @login_required(login_url='login')
-def waliSantri(request):
-    dataWali = WaliSantri.objects.order_by('-id')
-    filterwali = WaliSantriFilter(request.GET, queryset=dataWali)
-    dataWali = filterwali.qs
+
+# views kelas
+def kelas(request):
+    kelas_data = Kelas.objects.all()
     context = {
-        'menu' : 'Form Wali santri',
-        'page' : 'Halaman Wali Santri',
-        'formdatawali' : dataWali,
-        'filter_wali_santri' : filterwali
+        'menu' : 'Form Kelas',
+        'page' : 'Halaman Kelas',
+        'kelas' : kelas_data,
+        # 'filter_santri' : filtersantri
     }
-    return render(request, 'data/formwalisantri.html', context)
+    return render(request, 'data/kelas.html', context)
 
-# @ijinkan_pengguna(yang_diizinkan=['admin']) 
-# @login_required(login_url='login')
-def inputWaliSantri(request):
-    formwalisantri = WaliSantriForm()
-    if request.method =='POST':
-        formsimpan = WaliSantriForm(request.POST)
-        if formsimpan.is_valid:
-            formsimpan.save()
-            return redirect('walisantri')
+def create_kelas(request):
+    form = KelasForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        form.save()
+        return redirect('kelas')
     context = {
-        'menu' : 'input wali santri',
-        'page' : 'Halaman Input Wali Santri',
-        'formwali': formwalisantri
+        'menu' : 'Tambah Kelas',
+        'page' : 'Halaman Tambah Kelas',
+        'form': form
     }
-    return render(request,'data/inputwalisantri.html', context)
+    return render(request, 'data/kelas_form.html', context)
 
-# @ijinkan_pengguna(yang_diizinkan=['admin']) 
-# @login_required(login_url='login')
-def updateWaliSantri(request, pk):
-	walisantriupdate = WaliSantri.objects.get(id=pk)
-	formwalisantri = WaliSantriForm(instance=walisantriupdate)
-	if request.method == 'POST':
-		formupdate = WaliSantriForm(request.POST, instance=walisantriupdate)
-		if formupdate.is_valid:
-			formupdate.save()
-			return redirect('walisantri')
-	context = {
-		'menu': 'Edit wali santri',
-        'page': 'Halaman update wali santri',
-		'formwali': formwalisantri
-	}
-	return render(request, 'data/inputwalisantri.html', context)
+def update_kelas(request, pk):
+    kelas = Kelas.objects.get(id=pk)
+    form = KelasForm(request.POST or None, request.FILES or None, instance=kelas)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Kelas berhasil ditambahkan.')
+        return redirect('kelas')
+    context = {
+        'menu' : 'Edit Kelas',
+        'page' : 'Halaman Edit Kelas',
+        'form': form
+    }
+    return render(request, 'data/kelas_form.html', context)
 
-# @ijinkan_pengguna(yang_diizinkan=['admin']) 
-# @login_required(login_url='login')
-def deleteWaliSantri(request, pk):
-    walisantrihapus = WaliSantri.objects.get(id=pk)
+def delete_kelas(request, pk):
+    kelas = Kelas.objects.get(id=pk)
     if request.method == 'POST':
-        walisantrihapus.delete()
-        return redirect ('walisantri')
+        kelas.delete()
+        return redirect('kelas')
     context = {
-        'menu':'menu delete wali santri',
-        'page':'halaman delete wali santri',
-        'formhapuswalisantri': walisantrihapus
+        'menu':'Menu Delete Kelas',
+        'page':'Halaman Delete Kelas',
+        'kelas': kelas
     }
-    return render(request, 'data/delete_wali_santri.html', context)
+    return render(request, 'data/kelas_delete.html', context)
 
-# @ijinkan_pengguna(yang_diizinkan=['admin']) 
-# @login_required(login_url='login')
-def santri(request):
-    dataSantri = Santri.objects.order_by('-id')
-    filtersantri = SantriFilter(request.GET, queryset=dataSantri)
-    dataSantri = filtersantri.qs
+
+# views siswa
+def siswa(request):
+    siswa_data = Siswa.objects.all()
     context = {
-        'menu' : 'Form Santri',
-        'page' : 'Halaman Santri',
-        'formdata' : dataSantri,
-        'filter_santri' : filtersantri
+        'menu' : 'Form Siswa',
+        'page' : 'Halaman Siswa',
+        'siswa' : siswa_data,
+        'filter_santri' : SiswaFilter
     }
-    return render(request, 'data/formsantri.html', context)
+    return render(request, 'data/siswa.html', context)
 
-# @ijinkan_pengguna(yang_diizinkan=['admin']) 
-# @login_required(login_url='login')
-def inputsantri(request):
-    formSantri = SantriForm()
-    if request.method =='POST':
-        formsimpan = SantriForm(request.POST, request.FILES)
-        if formsimpan.is_valid:
-            formsimpan.save()
-            return redirect('santri')
+
+def create_siswa(request):
+    form = SiswaForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        form.save()
+        return redirect('siswa')
     context = {
-        'menu' : 'input santri',
-        'page' : 'Halaman Input Santri',
-        'form': formSantri
+        'menu' : 'Tambah Siswa',
+        'page' : 'Halaman Tambah Siswa',
+        'form': form
     }
-    return render(request,'data/inputsantri.html', context)
+    return render(request, 'data/siswa_form.html', context)
 
-# @ijinkan_pengguna(yang_diizinkan=['admin']) 
-# @login_required(login_url='login')
-def updateSantri(request, pk):
-	santriupdate = Santri.objects.get(id=pk)
-	formsantri = SantriForm(instance=santriupdate)
-	if request.method == 'POST':
-		formedit = SantriForm(request.POST, request.FILES, instance=santriupdate)
-		if formedit.is_valid:
-			formedit.save()
-			return redirect('santri')
-	context = {
-		'menu': 'Edit santri',
-        'page': 'Halaman update santri',
-		'form': formsantri
-	}
-	return render(request, 'data/inputsantri.html', context)
+def update_siswa(request, pk):
+    siswa = Siswa.objects.get(id=pk)
+    form = SiswaForm(request.POST or None, request.FILES or None, instance=siswa)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Siswa berhasil ditambahkan.')
+        return redirect('siswa')
+    context = {
+        'menu' : 'Edit Siswa',
+        'page' : 'Halaman Edit Siswa',
+        'form': form
+    }
+    return render(request, 'data/siswa_form.html', context)
 
-# @ijinkan_pengguna(yang_diizinkan=['admin']) 
-# @login_required(login_url='login')
-def deleteSantri(request, pk):
-    santrihapus = Santri.objects.get(id=pk)
+def delete_siswa(request, pk):
+    siswa = Siswa.objects.get(id=pk)
     if request.method == 'POST':
-        santrihapus.delete()
-        return redirect ('santri')
+        siswa.delete()
+        return redirect('siswa')
     context = {
-        'menu':'menu delete santri',
-        'page':'halaman delete santri',
-        'formhapussantri': santrihapus
+        'menu':'Menu Delete Santri',
+        'page':'Halaman Delete Santri',
+        'siswa': siswa
     }
-    return render(request, 'data/delete_santri.html', context)
+    return render(request, 'data/siswa_delete.html', context)
+
 
 # @ijinkan_pengguna(yang_diizinkan=['admin']) 
 # @login_required(login_url='login')
@@ -297,8 +269,8 @@ def deletePelanggaran(request, pk):
 def pengurus(request):
     data = Pengurus.objects.order_by('-id')
     context ={
-        "menu" : 'Pengurus',
-        "page" : 'Halaman Pengurus',
+        "menu" : 'Petugas',
+        "page" : 'Halaman Petugas',
         'pengurus' : data
     }
     return render(request, 'data/pengurus.html', context)
@@ -341,8 +313,8 @@ def inputpengurus(request):
         return redirect('pengurus')
 
     context ={
-        "menu" : 'Input pengurus',
-        "page" : 'Halaman Pengurus',
+        "menu" : 'Input Petugas',
+        "page" : 'Halaman Petugas',
         "form" : form
         
     }
@@ -359,24 +331,7 @@ def deletePengurus(request, pk):
         'formhapuspengurus': deletepengurus
     }
     return render(request, 'data/delete_pengurus.html', context)
-# def profil(request, id_santri):
-#     dataprofil = Santri.objects.get(id_santri = id_santri)
 
-#     context = {
-#         'menu' : 'profil', 
-#         'page' : 'Halaman profil', 
-#         'dataprofilsantri' : dataprofil
-        
-#     }
-#     return render(request, 'data/account_setting.html', context)
-
-# def profil(request, no_induk):
-#     context ={}
-  
-#     # add the dictionary during initialization
-#     context["data"] = Santri.objects.get(no_induk = no_induk)
-          
-#     return render(request, "data/profil_santri.html", context)
 
 # @ijinkan_pengguna(yang_diizinkan=['pengurus']) 
 # @login_required(login_url='login')

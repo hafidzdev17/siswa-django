@@ -43,7 +43,8 @@
     <div
       class="login-form-bg h-100"
       style="
-        background-image: url('{% static 'public/images/sabilul_hasan.jpg' %}');
+        background-size: cover;
+        background-image: url('{% static 'public/images/sekolas.jpeg' %}')
       "
     >
       <div class="container h-100">
@@ -58,14 +59,14 @@
                   >
                     <span class="activity active"></span>
                     <img
-                      src="https://www.kemdikbud.go.id/main/files/large/83790f2b43f00be"
+                      src="{% static 'public/images/logo.jpeg' %}"
                       height="150"
                       width="150"
                       alt=""
                     />
                   </div>
                   <br />
-                  <a class="text-center" href="index.html"><h4>LOGIN</h4></a>
+                  <a class="text-center" href="#"><h4>LOGIN</h4></a>
                   {% if messages %} {%for pesan in messages %}
                   <div class="alert alert-danger alert-dismissible fade show">
                     <button

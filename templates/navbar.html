@@ -21,7 +21,7 @@
             href="{% url 'pengurus' %}"
             aria-expanded="false"
           >
-            <i class="icon-note menu-icon"></i
+            <i class="icon-user menu-icon"></i
             ><span class="nav-text">Petugas</span>
           </a>
         </h4>
@@ -29,20 +29,8 @@
       <li>
         <h4>
           <a
-            class="nav-link {% if menu == 'santri' %} active {% endif %}"
-            href="{% url 'santri' %}"
-            aria-expanded="false"
-          >
-            <i class="icon-note menu-icon"></i
-            ><span class="nav-text">Data Siswa</span>
-          </a>
-        </h4>
-      </li>
-      <li>
-        <h4>
-          <a
-            class="nav-link {% if menu == 'walisantri' %} active {% endif %}"
-            href="{% url 'walisantri' %}"
+            class="nav-link {% if menu == 'kelas' %} active {% endif %}"
+            href="{% url 'kelas' %}"
             aria-expanded="false"
           >
             <i class="icon-note menu-icon"></i
@@ -50,6 +38,19 @@
           </a>
         </h4>
       </li>
+      <li>
+        <h4>
+          <a
+            class="nav-link {% if menu == 'siswa' %} active {% endif %}"
+            href="{% url 'siswa' %}"
+            aria-expanded="false"
+          >
+            <i class="icon-user menu-icon"></i
+            ><span class="nav-text">Data Siswa</span>
+          </a>
+        </h4>
+      </li>
+    
       <li>
         <h4>
           <a

@@ -6,12 +6,12 @@
 		 <div class="row justify-content-md-center">
 			 <div class="col-md-8">
 				 <div class="card card-body">
-					 <p> Are you sure want to delete "{{ formhapussantri }}" ?</p>
+					 <p> Are you sure want to delete "{{ siswa }}" ?</p>
 						 <form action="" method="POST">
 							 {% csrf_token %}
 							 <br>
-							 <a class="btn btn-danger" href="{% url 'santri' %}" role="button">Cancel</a>
-						 <input type="submit" class="btn btn-primary" name="Confirm"/>
+							 <a class="btn btn-warning" href="{% url 'siswa' %}" role="button">Cancel</a>
+							 <button type="submit" class="btn btn-danger">Delete</button>
 					 </form>
 				 </div>
 			 </div>

@@ -8,14 +8,19 @@ urlpatterns = [
     path('login/', views.loginPage, name='login'),
     path('logout/', views.logoutPage, name='logout'),
     path('register/', views.registerPage, name='register'),
-    path('santri/', views.santri, name='santri'),
-    path('inputsantri/', views.inputsantri, name='inputsantri'),
-    path('updatesantri/<str:pk>', views.updateSantri, name='updatesantri'),
-    path('deletesantri/<str:pk>', views.deleteSantri , name='deletesantri'),
-    path('walisantri/', views.waliSantri, name='walisantri'),
-    path('inputwalisantri/', views.inputWaliSantri, name='inputwalisantri'),
-    path('updatewalisantri/<str:pk>', views.updateWaliSantri, name='updatewalisantri'),
-    path('deletewalisantri/<str:pk>', views.deleteWaliSantri, name='deletewalisantri'),
+
+    # kelas
+    path('kelas', views.kelas, name='kelas'),
+    path('create_kelas/', views.create_kelas, name='create_kelas'),
+    path('update_kelas/<int:pk>/', views.update_kelas, name='update_kelas'),
+    path('delete_kelas/<int:pk>/', views.delete_kelas, name='delete_kelas'),
+
+    # siswa
+    path('siswa', views.siswa, name='siswa'),
+    path('create_siswa/', views.create_siswa, name='create_siswa'),
+    path('update_siswa/<int:pk>/', views.update_siswa, name='update_siswa'),
+    path('delete_siswa/<int:pk>/', views.delete_siswa, name='delete_siswa'),
+
     path('pelanggaran/', views.pelanggaran, name='pelanggaran'),
     path('inputpelanggaran/', views.inputpelanggaran, name='inputpelanggaran'),
     path('updatepelanggaran/<str:pk>', views.updatePelanggaran, name='updatepelanggaran'),
