@@ -97,7 +97,7 @@ def kelas(request):
         'menu' : 'Form Kelas',
         'page' : 'Halaman Kelas',
         'kelas' : kelas_data,
-        # 'filter_santri' : filtersantri
+        'filter_kelas' : KelasFilter
     }
     return render(request, 'data/kelas.html', context)
 
@@ -147,7 +147,7 @@ def siswa(request):
         'menu' : 'Form Siswa',
         'page' : 'Halaman Siswa',
         'siswa' : siswa_data,
-        'filter_santri' : SiswaFilter
+        'filter_siswa' : SiswaFilter
     }
     return render(request, 'data/siswa.html', context)
 
@@ -190,6 +190,66 @@ def delete_siswa(request, pk):
     }
     return render(request, 'data/siswa_delete.html', context)
 
+
+# petugas
+def petugas(request):
+    data = Petugas.objects.order_by('-id')
+    context ={
+        "menu" : 'Petugas',
+        "page" : 'Halaman Petugas',
+        'petugas' : data
+    }
+    return render(request, 'data/petugas.html', context)
+
+def create_petugas(request):
+    form = PetugasForm()
+    petugas = PetugasForm(request.POST)
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password1 = request.POST.get('password')
+        password2 = request.POST.get('password2')
+
+        if User.objects.filter(username = username).first():
+            messages.success(request, 'Username sudah ada.')
+            return redirect('create_petugas')
+
+        if password1 != password2:
+            messages.success(request, 'Password Tidak sama')
+            return redirect('create_petugas')
+        # user
+        user = User.objects.create_user(username=username)
+        user.set_password(password1)
+        user.is_active = True
+        user.save()
+        # user
+
+
+        # Petugas
+        createPetugas = petugas.save()
+        createPetugas.user = user
+        createPetugas.save()
+        
+        return redirect('petugas')
+
+    context ={
+        "menu" : 'Input Petugas',
+        "page" : 'Halaman Petugas',
+        "form" : form
+        
+    }
+    return render(request, 'data/petugas_form.html', context)
+
+def delete_petugas(request, pk):
+    delete_petugas = Petugas.objects.get(id=pk)
+    if request.method == 'POST':
+        delete_petugas.delete()
+        return redirect ('petugas')
+    context = {
+        'menu':'Menu Delete Petugas',
+        'page':'Halaman Delete Petugas',
+        'petugas': delete_petugas
+    }
+    return render(request, 'data/petugas_delete.html', context)
 
 # @ijinkan_pengguna(yang_diizinkan=['admin']) 
 # @login_required(login_url='login')
@@ -263,74 +323,6 @@ def deletePelanggaran(request, pk):
         'formhapuspelanggaran': pelanggaranhapus
     }
     return render(request, 'data/delete_pelanggaran.html', context)
-
-# @ijinkan_pengguna(yang_diizinkan=['admin']) 
-# @login_required(login_url='login')
-def pengurus(request):
-    data = Pengurus.objects.order_by('-id')
-    context ={
-        "menu" : 'Petugas',
-        "page" : 'Halaman Petugas',
-        'pengurus' : data
-    }
-    return render(request, 'data/pengurus.html', context)
-
-# @ijinkan_pengguna(yang_diizinkan=['admin']) 
-# @login_required(login_url='login')
-def inputpengurus(request):
-    form = PengurusForm()
-    formpengurus = PengurusForm(request.POST)
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password1 = request.POST.get('password')
-        password2 = request.POST.get('password2')
-
-        if User.objects.filter(username = username).first():
-            messages.success(request, 'Username sudah ada.')
-            return redirect('inputpengurus')
-
-        if password1 != password2:
-            messages.success(request, 'Password Tidak sama')
-            return redirect('inputpengurus')
-        # user
-        user = User.objects.create_user(username=username)
-        user.set_password(password1)
-        user.is_active = True
-        user.save()
-        # user
-
-        # Group
-        akses_pengurus = Group.objects.get(name='pengurus')
-        user.groups.add(akses_pengurus)
-        # Group
-
-        # Karyawan
-        formsimpanpengurus = formpengurus.save()
-        formsimpanpengurus.user = user
-        formsimpanpengurus.save()
-        # Karyawan
-        
-        return redirect('pengurus')
-
-    context ={
-        "menu" : 'Input Petugas',
-        "page" : 'Halaman Petugas',
-        "form" : form
-        
-    }
-    return render(request, 'data/inputpengurus.html', context)
-
-def deletePengurus(request, pk):
-    deletepengurus = Pengurus.objects.get(id=pk)
-    if request.method == 'POST':
-        deletepengurus.delete()
-        return redirect ('pengurus')
-    context = {
-        'menu':'menu delete pengurus',
-        'page':'halaman delete pengurus',
-        'formhapuspengurus': deletepengurus
-    }
-    return render(request, 'data/delete_pengurus.html', context)
 
 
 # @ijinkan_pengguna(yang_diizinkan=['pengurus']) 

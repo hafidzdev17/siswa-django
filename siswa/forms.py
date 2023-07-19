@@ -39,14 +39,13 @@ class SiswaForm(ModelForm):
             'tahun_akademik' : 'Tahun Akademik',
         }
 
-class PengurusForm(ModelForm):
+class PetugasForm(ModelForm):
 
     class Meta:
-        model = Pengurus
+        model = Petugas
         fields = '__all__'
         exclude = ['user']
         labels = {
-            'nama_pengurus' : 'Nama Pengurus',
-            'staff' : 'Bagian',
+            'nama_petugas' : 'Nama Petugas',
             'no_telpon' : 'Nomer telepon',
         }

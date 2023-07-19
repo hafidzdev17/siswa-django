@@ -4,6 +4,6 @@ from .models import *
 # Register your models here.
 admin.site.register(Kelas)
 admin.site.register(Siswa)
-admin.site.register(Pengurus)
+admin.site.register(Petugas)
 admin.site.register(Pelanggaran)
 admin.site.register(Pembayaran)

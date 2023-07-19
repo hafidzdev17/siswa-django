@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% load static %} {% block content %}
+{% extends "base.html" %} {% load widget_tweaks %} {% load static %} {% block content %}
 <style>
   tbody {
     overflow-y: 0;
@@ -19,18 +19,20 @@
                 Tambah Kelas
               </a>
             </div>
-            <div class="col">
-              <div class="card card-body">
-                <form method="get">
-                  <div class="row">
-                    <div></div>
-                    <button class="btn btn-primary" type="submit">
-                      Search
-                    </button>
+
+            <form method="get">
+              <div class="row my-3">
+                <div class="col-4">
+                  {{ filter_kelas.form.nama_kelas| add_class:"form-control" }}
                   </div>
-                </form>
+               <div class="col-2">
+                <button class="btn btn-primary" type="submit">
+                  Search
+                </button>
+               </div>
               </div>
-            </div>
+            </form>
+     
             <div class="table-responsive">
               <table class="table">
                 <thead>

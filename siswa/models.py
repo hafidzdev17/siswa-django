@@ -41,20 +41,18 @@ class Pembayaran(models.Model):
     class Meta:
         verbose_name_plural = "Pembayaran"
 
-class Pengurus(models.Model):
+class Petugas(models.Model):
     
     user = models.OneToOneField(User, blank =True, null=True, on_delete = models.CASCADE)
-    nama_pengurus = models.CharField(max_length=200, blank=True, null=False)
+    nama_petugas = models.CharField(max_length=200, blank=True, null=False)
     email = models.CharField(max_length=100,blank=True, null=False)
     status = models.CharField(max_length=100,blank=True, null=False)
     no_telpon = models.CharField(max_length=200, blank=True, null=False)
 
-
     def __str__(self):
-        return self.nama_pengurus
+        return self.nama_petugas
     class Meta:
-        verbose_name_plural = "Pengurus"
-
+        verbose_name_plural = "Petugas"
 
 
 class Pelanggaran(models.Model):

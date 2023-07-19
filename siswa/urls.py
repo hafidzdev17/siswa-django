@@ -21,13 +21,16 @@ urlpatterns = [
     path('update_siswa/<int:pk>/', views.update_siswa, name='update_siswa'),
     path('delete_siswa/<int:pk>/', views.delete_siswa, name='delete_siswa'),
 
+    # petugas
+    path('petugas', views.petugas, name='petugas'),
+    path('create_petugas', views.create_petugas, name='create_petugas'),
+    path('delete_petugas/<str:pk>', views.delete_petugas, name='delete_petugas'),
+
     path('pelanggaran/', views.pelanggaran, name='pelanggaran'),
     path('inputpelanggaran/', views.inputpelanggaran, name='inputpelanggaran'),
     path('updatepelanggaran/<str:pk>', views.updatePelanggaran, name='updatepelanggaran'),
     path('deletepelanggaran/<str:pk>', views.deletePelanggaran, name='deletepelanggaran'),
-    path('pengurus/', views.pengurus, name='pengurus'),
-    path('inputpengurus', views.inputpengurus, name='inputpengurus'),
-    path('deletepengurus/<str:pk>', views.deletePengurus, name='deletepengurus'),
+  
     path('export/xls/', views.export_xls, name='export_xls'),
     path('pelanggaranuser/', views.pelanggaranuser, name='pelanggaranuser'),
     path('inputpelanggaranuser/', views.inputpelanggaranuser, name='inputpelanggaranuser'),
