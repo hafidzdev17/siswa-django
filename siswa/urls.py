@@ -26,6 +26,12 @@ urlpatterns = [
     path('create_petugas', views.create_petugas, name='create_petugas'),
     path('delete_petugas/<str:pk>', views.delete_petugas, name='delete_petugas'),
 
+    # pembayaran
+    path('pembayaran', views.pembayaran, name='pembayaran'),
+    path('create_pembayaran/', views.create_pembayaran, name='create_pembayaran'),
+    path('update_pembayaran/<int:pk>/', views.update_pembayaran, name='update_pembayaran'),
+    path('delete_pembayaran/<str:pk>/', views.delete_pembayaran, name='delete_pembayaran'),
+
     path('pelanggaran/', views.pelanggaran, name='pelanggaran'),
     path('inputpelanggaran/', views.inputpelanggaran, name='inputpelanggaran'),
     path('updatepelanggaran/<str:pk>', views.updatePelanggaran, name='updatepelanggaran'),
