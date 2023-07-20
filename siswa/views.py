@@ -40,7 +40,10 @@ def export_xls(request):
 # @ijinkan_pengguna(yang_diizinkan=['admin']) 
 # @pilihan_login
 def beranda(request):
+    
     list_pelanggaran = Pelanggaran.objects.all()
+    total_siswa = Siswa.objects.count()
+
     ringan = list_pelanggaran.filter(kategory='Ringan').count()
     sedang = list_pelanggaran.filter(kategory='Sedang').count()
     berat = list_pelanggaran.filter(kategory='Berat').count()
@@ -51,7 +54,7 @@ def beranda(request):
         'plnringan' : ringan,
         'plnsedang' : sedang,
         'plnberat' : berat,
-        'totalpln' : total
+        'totalpln' : total_siswa
 
     }
     return render(request, 'data/beranda.html', context)
@@ -184,8 +187,8 @@ def delete_siswa(request, pk):
         siswa.delete()
         return redirect('siswa')
     context = {
-        'menu':'Menu Delete Santri',
-        'page':'Halaman Delete Santri',
+        'menu':'Menu Delete Siswa',
+        'page':'Halaman Delete Siswa',
         'siswa': siswa
     }
     return render(request, 'data/siswa_delete.html', context)
@@ -250,6 +253,62 @@ def delete_petugas(request, pk):
         'petugas': delete_petugas
     }
     return render(request, 'data/petugas_delete.html', context)
+
+
+# pembayaran
+
+def pembayaran(request):
+    pembayaran_data = Pembayaran.objects.order_by('-id')
+    context = {
+        'menu' : 'Form Pembayaran',
+        'page' : 'Halaman Pembayaran',
+        'pembayaran' : pembayaran_data,
+        'filter_pembayaran' : SiswaFilter
+    }
+    return render(request, 'data/pembayaran.html', context)
+
+def create_pembayaran(request):
+    form = PembayaranForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        form.save()
+        return redirect('pembayaran')
+    context = {
+        'menu' : 'Tambah Pembayaran',
+        'page' : 'Halaman Tambah Pembayaran',
+        'form': form
+    }
+    return render(request, 'data/pembayaran_form.html', context)
+
+def update_pembayaran(request, pk):
+    pembayaran = Pembayaran.objects.get(id=pk)
+    form = PembayaranForm(request.POST or None, request.FILES or None, instance=pembayaran)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'pembayaran berhasil ditambahkan.')
+        return redirect('pembayaran')
+    context = {
+        'menu' : 'Edit Pembayaran',
+        'page' : 'Halaman Edit Pembayaran',
+        'form': form
+    }
+    return render(request, 'data/pembayaran_form.html', context)
+
+def delete_pembayaran(request, pk):
+    pembayaran = Pembayaran.objects.get(id=pk)
+    nama_siswa = pembayaran.nama.nama
+
+    if request.method == 'POST':
+        pembayaran.delete()
+        return redirect('pembayaran')
+        
+    context = {
+        'menu':'Menu Delete Pembayaran',
+        'page':'Halaman Delete Pembayaran',
+        'nama_siswa': nama_siswa
+    }
+    return render(request, 'data/pembayaran_delete.html', context)
+
+
 
 # @ijinkan_pengguna(yang_diizinkan=['admin']) 
 # @login_required(login_url='login')
