@@ -49,3 +49,24 @@ class PetugasForm(ModelForm):
             'nama_petugas' : 'Nama Petugas',
             'no_telpon' : 'Nomer telepon',
         }
+
+class PembayaranForm(ModelForm):
+    class Meta:
+        model = Pembayaran
+        fields= '__all__'
+    
+        widgets = {
+            'nama': forms.Select(attrs={'class': 'form-select'}),
+            'pembayaran': forms.TextInput(attrs={'class': 'form-select'}),
+            'biaya': forms.TextInput(attrs={'class': 'form-control'}),
+            'tahun': forms.TextInput(attrs={'class': 'form-select'}),
+            'kelas': forms.Select(attrs={'class': 'form-select'}),
+        }
+        labels = {
+            'nama' : 'Nama Siswa',
+            'pembayaran': 'Pembayaran',
+            'biaya' : 'Biaya',
+            'tahun' : 'Tahun',
+            'kelas': 'Kelas',
+        }
+
