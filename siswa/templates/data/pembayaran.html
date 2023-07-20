@@ -1,0 +1,92 @@
+{% extends "base.html" %} {% load widget_tweaks %} {% load static %} {% block content %}
+<style>
+  tbody {
+    overflow-y: 0;
+  }
+</style>
+<div class="content-body">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg">
+        <div class="card">
+        
+          <div class="card-body">
+
+            
+            <div class="card-title">
+              <a
+                href="{% url 'create_pembayaran'  %}"
+                type="button"
+                class="btn btn-rounded btn-outline-secondary icon-note menu-icon"
+              >
+                Tambah Pembayaran
+              </a>
+            </div>
+
+            <form method="get">
+              <div class="row my-3">
+                <div class="col-4">
+                  {{ filter_pembayaran.form.nama| add_class:"form-control" }}
+                  </div>
+               <div class="col-2">
+                <button class="btn btn-primary" type="submit">
+                  Search
+                </button>
+               </div>
+              </div>
+            </form>
+
+            {% if messages %}
+            {% for pesan  in messages  %}
+                <div class="alert alert-{{ pesan.tags }}" align="center">
+                    <b>{{ pesan }}</b>
+                </div>
+            {% endfor %}
+        {% endif %}
+         
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Nama Siswa</th>
+                    <th>Pembayaran</th>
+                    <th>Biaya</th>
+                    <th>Tahun</th>
+                    <th>Kelas</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for pembayaran in pembayaran %}
+                  <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ pembayaran.nama }}</td>
+                    <td>{{ pembayaran.pembayaran }}</td>
+                    <td>{{ pembayaran.biaya }}</td>
+                    <td>{{ pembayaran.tahun }}</td>
+                    <td>{{ pembayaran.kelas }}</td>
+                    <td>
+                      <a
+                        class="btn btn-info btn-sm"
+                        href="{% url 'update_pembayaran' pembayaran.id %}"
+                        >Edit</a
+                      >
+                      <a
+                        class="btn btn-danger btn-sm"
+                        href="{% url 'delete_pembayaran' pembayaran.id %}"
+                        >Hapus</a
+                      >
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
