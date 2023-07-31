@@ -17,32 +17,29 @@
               <a
                 href="{% url 'create_siswa'  %}"
                 type="button"
-                class="btn btn-rounded btn-outline-secondary icon-note menu-icon"
+                class="btn btn-rounded btn-outline-secondary fa-fa fa-plus"
               >
                 Tambah Siswa
               </a>
             </div>
+            
+            {% if messages %}
+            {%for pesan in messages %}
+            <div class="alert alert-success alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button> {{ pesan }}
+            </div>
+            {% endfor %}
+            {% endif %}
 
-            <form method="get">
-              <div class="row my-3">
-                <div class="col-4">
-                  {{ filter_siswa.form.nama| add_class:"form-control" }}
-                  </div>
-               <div class="col-2">
-                <button class="btn btn-primary" type="submit">
-                  Search
-                </button>
-               </div>
-              </div>
-            </form>
-         
             <div class="table-responsive">
-              <table class="table">
+              <table id="data-tabel" class="table">
                 <thead>
                   <tr>
                     <th>No</th>
                     <th>NISN</th>
                     <th>Nama</th>
+                    <th>Jenis Kelamin</th>
                     <th>Alamat</th>
                     <th>TTL</th>
                     <th>Kelas</th>
@@ -57,6 +54,7 @@
                     <td>{{ forloop.counter }}</td>
                     <td>{{ siswa.nisn }}</td>
                     <td>{{ siswa.nama }}</td>
+                    <td>{% if siswa.jenis_kelamin == 'L' %}Laki-Laki{% else %}Perempuan{% endif %}</td>
                     <td>{{ siswa.alamat }}</td>
                     <td>{{ siswa.ttl }}</td>
                     <td>{{ siswa.kelas }}</td>
@@ -70,12 +68,12 @@
                     </td>
                     <td>
                       <a
-                        class="btn btn-info btn-sm"
+                        class="btn btn-info btn-sm my-1"
                         href="{% url 'update_siswa' siswa.id %}"
                         >Edit</a
                       >
                       <a
-                        class="btn btn-danger btn-sm"
+                        class="btn btn-danger btn-sm my-1"
                         href="{% url 'delete_siswa' siswa.id %}"
                         >Hapus</a
                       >

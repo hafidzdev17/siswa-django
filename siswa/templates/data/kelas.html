@@ -14,27 +14,24 @@
               <a
                 href="{% url 'create_kelas'  %}"
                 type="button"
-                class="btn btn-rounded btn-outline-secondary icon-note menu-icon"
+                class="btn btn-rounded btn-outline-secondary fa-fa fa-plus"
               >
                 Tambah Kelas
               </a>
             </div>
 
-            <form method="get">
-              <div class="row my-3">
-                <div class="col-4">
-                  {{ filter_kelas.form.nama_kelas| add_class:"form-control" }}
-                  </div>
-               <div class="col-2">
-                <button class="btn btn-primary" type="submit">
-                  Search
-                </button>
-               </div>
-              </div>
-            </form>
+            {% if messages %}
+            {%for pesan in messages %}
+            <div class="alert alert-success alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button> {{ pesan }}
+            </div>
+            {% endfor %}
+            {% endif %}
+
      
             <div class="table-responsive">
-              <table class="table">
+              <table id="data-tabel" class="table">
                 <thead>
                   <tr>
                     <th>No</th>
