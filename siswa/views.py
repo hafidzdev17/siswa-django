@@ -43,19 +43,17 @@ def beranda(request):
     
     list_pelanggaran = Pelanggaran.objects.all()
     total_siswa = Siswa.objects.count()
-
-    ringan = list_pelanggaran.filter(kategory='Ringan').count()
-    sedang = list_pelanggaran.filter(kategory='Sedang').count()
-    berat = list_pelanggaran.filter(kategory='Berat').count()
-    total = list_pelanggaran.count()
+    total_kelas = Kelas.objects.count()
+    total_petugas = Petugas.objects.count()
+    total_pembayaran = Pembayaran.objects.count()
+  
     context = {
         'menu' : 'Beranda',
         'page' : 'Selamat Datang Di Beranda',
-        'plnringan' : ringan,
-        'plnsedang' : sedang,
-        'plnberat' : berat,
-        'totalpln' : total_siswa
-
+        'siswa' : total_siswa,
+        'kelas' : total_kelas,
+        'petugas' : total_petugas,
+        'pembayaran' : total_pembayaran,
     }
     return render(request, 'data/beranda.html', context)
 
@@ -108,6 +106,7 @@ def create_kelas(request):
     form = KelasForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         form.save()
+        messages.success(request, 'Kelas berhasil ditambahkan.')
         return redirect('kelas')
     context = {
         'menu' : 'Tambah Kelas',
@@ -121,7 +120,7 @@ def update_kelas(request, pk):
     form = KelasForm(request.POST or None, request.FILES or None, instance=kelas)
     if form.is_valid():
         form.save()
-        messages.success(request, 'Kelas berhasil ditambahkan.')
+        messages.success(request, 'Kelas berhasil diupdate.')
         return redirect('kelas')
     context = {
         'menu' : 'Edit Kelas',
@@ -134,6 +133,7 @@ def delete_kelas(request, pk):
     kelas = Kelas.objects.get(id=pk)
     if request.method == 'POST':
         kelas.delete()
+        messages.success(request, 'Kelas berhasil dihapus.')
         return redirect('kelas')
     context = {
         'menu':'Menu Delete Kelas',
@@ -145,7 +145,7 @@ def delete_kelas(request, pk):
 
 # views siswa
 def siswa(request):
-    siswa_data = Siswa.objects.all()
+    siswa_data = Siswa.objects.order_by('-id')
     context = {
         'menu' : 'Form Siswa',
         'page' : 'Halaman Siswa',
@@ -159,6 +159,7 @@ def create_siswa(request):
     form = SiswaForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         form.save()
+        messages.success(request, 'Siswa Berhasil Ditambahkan.')
         return redirect('siswa')
     context = {
         'menu' : 'Tambah Siswa',
@@ -172,7 +173,7 @@ def update_siswa(request, pk):
     form = SiswaForm(request.POST or None, request.FILES or None, instance=siswa)
     if form.is_valid():
         form.save()
-        messages.success(request, 'Siswa berhasil ditambahkan.')
+        messages.success(request, 'Siswa berhasil diupdate.')
         return redirect('siswa')
     context = {
         'menu' : 'Edit Siswa',
@@ -185,6 +186,7 @@ def delete_siswa(request, pk):
     siswa = Siswa.objects.get(id=pk)
     if request.method == 'POST':
         siswa.delete()
+        messages.success(request, 'Siswa berhasil dihapus.')
         return redirect('siswa')
     context = {
         'menu':'Menu Delete Siswa',
@@ -224,13 +226,12 @@ def create_petugas(request):
         user.set_password(password1)
         user.is_active = True
         user.save()
-        # user
-
 
         # Petugas
         createPetugas = petugas.save()
         createPetugas.user = user
         createPetugas.save()
+        messages.success(request, 'petugas berhasil ditambahkan.')
         
         return redirect('petugas')
 
@@ -246,6 +247,7 @@ def delete_petugas(request, pk):
     delete_petugas = Petugas.objects.get(id=pk)
     if request.method == 'POST':
         delete_petugas.delete()
+        messages.success(request, 'petugas berhasil dihapus.')
         return redirect ('petugas')
     context = {
         'menu':'Menu Delete Petugas',
@@ -271,6 +273,7 @@ def create_pembayaran(request):
     form = PembayaranForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         form.save()
+        messages.success(request, 'pembayaran berhasil ditambahkan.')
         return redirect('pembayaran')
     context = {
         'menu' : 'Tambah Pembayaran',
@@ -284,7 +287,7 @@ def update_pembayaran(request, pk):
     form = PembayaranForm(request.POST or None, request.FILES or None, instance=pembayaran)
     if form.is_valid():
         form.save()
-        messages.success(request, 'pembayaran berhasil ditambahkan.')
+        messages.success(request, 'pembayaran berhasil diupdate.')
         return redirect('pembayaran')
     context = {
         'menu' : 'Edit Pembayaran',
@@ -299,6 +302,7 @@ def delete_pembayaran(request, pk):
 
     if request.method == 'POST':
         pembayaran.delete()
+        messages.success(request, 'pembayaran berhasil dihapus.')
         return redirect('pembayaran')
         
     context = {
@@ -308,6 +312,58 @@ def delete_pembayaran(request, pk):
     }
     return render(request, 'data/pembayaran_delete.html', context)
 
+# Rincian Pembayaran
+def rincian_pmb(request):
+    pembayaran = RincianPembayaran.objects.order_by('-id')
+    context = {
+        'menu' : 'Form Rincian Pembayaran',
+        'page' : 'Halaman Rincian Pembayaran',
+        'rincianpmb' : pembayaran,
+    }
+    return render(request, 'data/rincianpmb.html', context)
+
+def create_rincian(request):
+    form = RincianPembayaranForm(request.POST or None, request.FILES or None)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Rincian Pembayaran Berhasil Ditambahkan.')
+        return redirect('rincian_pembayaran')
+    context = {
+        'menu' : 'Tambah Rincian Pembayaran',
+        'page' : 'Halaman Tambah Rincian Pembayaran',
+        'form': form
+    }
+    return render(request, 'data/rincianpmb_form.html', context)
+
+def update_rincian(request, pk):
+    pembayaran = RincianPembayaran.objects.get(id=pk)
+    form = RincianPembayaranForm(request.POST or None, request.FILES or None, instance=pembayaran)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Rincian Pembayaran Berhasil Diupdate.')
+        return redirect('rincian_pembayaran')
+    context = {
+        'menu' : 'Edit Rincian Pembayaran',
+        'page' : 'Halaman Edit Rincian Pembayaran',
+        'form': form
+    }
+    return render(request, 'data/rincianpmb_form.html', context)
+
+def delete_rincian(request, pk):
+    pembayaran = RincianPembayaran.objects.get(id=pk)
+    nama_siswa = pembayaran.nama_siswa.nama
+
+    if request.method == 'POST':
+        pembayaran.delete()
+        messages.success(request, 'Rincian Pembayaran Berhasil Dihapus.')
+        return redirect('rincian_pembayaran')
+        
+    context = {
+        'menu':'Menu Delete Rincian Pembayaran',
+        'page':'Halaman Delete Rincian Pembayaran',
+        'nama_siswa': nama_siswa
+    }
+    return render(request, 'data/rincianpmb_delete.html', context)
 
 
 # @ijinkan_pengguna(yang_diizinkan=['admin']) 
