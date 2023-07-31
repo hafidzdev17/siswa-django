@@ -10,7 +10,7 @@ class KelasForm(ModelForm):
     
         widgets = {
             'nama_kelas': forms.TextInput(attrs={'class': 'form-select'}),
-            'status_kelas': forms.TextInput(attrs={'class': 'form-select'}),
+            'status_kelas': forms.RadioSelect(attrs={'class': 'form-check-input'}),
         }
         labels = {
             'nama_kelas' : 'Nama Kelas',
@@ -25,6 +25,7 @@ class SiswaForm(ModelForm):
         widgets = {
             'kelas': forms.Select(attrs={'class': 'form-select'}),
             'nama': forms.TextInput(attrs={'class': 'form-select'}),
+            'jenis_kelamin': forms.RadioSelect(attrs={'class': 'form-check-input'}),
             'nisn': forms.TextInput(attrs={'class': 'form-select'}),
             'alamat': forms.TextInput(attrs={'class': 'form-control'}),
             'ttl': forms.DateInput(format = '%m-%d-%Y',attrs={'type': 'date'}),
@@ -33,6 +34,7 @@ class SiswaForm(ModelForm):
         labels = {
             'kelas': 'Kelas',
             'nama' : 'Nama Lengkap',
+            'jenis_kelamin' : 'Jenis Kelamin',
             'nisn': 'NISN',
             'alamat' : 'Alamat',
             'ttl': 'Tanggal lahir',
@@ -45,6 +47,9 @@ class PetugasForm(ModelForm):
         model = Petugas
         fields = '__all__'
         exclude = ['user']
+        widgets = {
+            'status': forms.RadioSelect(attrs={'class': 'form-check-input'}),
+        }
         labels = {
             'nama_petugas' : 'Nama Petugas',
             'no_telpon' : 'Nomer telepon',
@@ -68,5 +73,27 @@ class PembayaranForm(ModelForm):
             'biaya' : 'Biaya',
             'tahun' : 'Tahun',
             'kelas': 'Kelas',
+        }
+
+class RincianPembayaranForm(ModelForm):
+    class Meta:
+        model = RincianPembayaran
+        fields= '__all__'
+    
+        widgets = {
+            'nama_siswa': forms.Select(attrs={'class': 'form-select'}),
+            'kelas': forms.Select(attrs={'class': 'form-select'}),
+            'kategori': forms.Select(attrs={'class': 'form-select'}),
+            'tanggal': forms.DateInput(format = '%m-%d-%Y',attrs={'type': 'date'}),
+            'biaya': forms.TextInput(attrs={'class': 'form-control'}),
+            'keterangan': forms.Select(attrs={'class': 'form-select'}),
+        }
+        labels = {
+            'nama_siswa' : 'Nama Siswa',
+            'kelas': 'Kelas',
+            'kategori': 'Kategori Pembayaran',
+            'tanggal' : 'Tanggal Pembayaran',
+            'biaya' : 'Biaya',
+            'keterangan' : 'Keterangan',
         }
 
