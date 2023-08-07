@@ -16,10 +16,10 @@ class SiswaFilter(django_filters.FilterSet):
         model = Siswa
         fields = ['nama']
 
-class PelanggaranFilter(django_filters.FilterSet):
-    tglmulai = DateFilter(field_name="kejadian", lookup_expr='gte')
-    tglakhir = DateFilter(field_name="kejadian", lookup_expr='lte')
+class PembayaranFilter(django_filters.FilterSet):
+    tglmulai = DateFilter(field_name="tanggal", lookup_expr='gte')
+    tglakhir = DateFilter(field_name="tanggal", lookup_expr='lte')
 
     class Meta:
-        model = Pelanggaran
+        model = Pembayaran
         fields ='__all__'

@@ -1,10 +1,10 @@
 from import_export import resources
-from .models import Pelanggaran
+from .models import Pembayaran
 from import_export.fields import Field
 
-class PelanggaranResource(resources.ModelResource):
-    nama_santri__nama = Field(attribute='nama_santri', column_name='Nama Santri')
+class PembayaranResource(resources.ModelResource):
+    nama_siswa__nama = Field(attribute='nama_siswa', column_name='Nama Siswa')
     class Meta:
-        model = Pelanggaran
-        fields = ['nama_santri__nama', 'nama_pelanggaran', 'kategory', 'kejadian', 'keterangan']
+        model = Pembayaran
+        fields = ['nama_siswa__nama', 'jumlah_pembayaran', 'biaya_pembayaran', 'kategori_pembayaran', 'tanggal_pembayaran','tahun','keterangan']
 

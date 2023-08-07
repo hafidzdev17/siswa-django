@@ -4,8 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from .models import *
 from .forms import *
 from django.http import HttpResponse
-from .filters import KelasFilter, SiswaFilter, PelanggaranFilter
-from .resource import PelanggaranResource
+from .filters import KelasFilter, SiswaFilter, PembayaranFilter
+from .resource import PembayaranResource
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.contrib.auth.models import Group
@@ -30,7 +30,7 @@ def telegram_bot(chat_id, message):
 # @ijinkan_pengguna(yang_diizinkan=['admin']) 
 # @login_required(login_url='login')
 def export_xls(request):
-    pln = PelanggaranResource()
+    pln = PembayaranResource()
     dataset = pln.export()
     response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
     response['Content-Disposition'] = 'attachment; filename=pelangaran.xls'
@@ -40,7 +40,10 @@ def export_xls(request):
 @login_required
 def beranda(request):
     
-    list_pelanggaran = Pelanggaran.objects.all()
+    pembayaran = Pembayaran.objects.all()
+    total_kms =  pembayaran.filter(kategori='KMS').count()
+    total_lks = pembayaran.filter(kategori='LKS').count()
+    total_komputer = pembayaran.filter(kategori='Komputer').count()
     total_siswa = Siswa.objects.count()
     total_kelas = Kelas.objects.count()
     total_petugas = Petugas.objects.count()
@@ -49,6 +52,9 @@ def beranda(request):
     context = {
         'menu' : 'Beranda',
         'page' : 'Selamat Datang Di Beranda',
+        'kms': total_kms,
+        'lks': total_lks,
+        'komputer': total_komputer,
         'siswa' : total_siswa,
         'kelas' : total_kelas,
         'petugas' : total_petugas,
@@ -435,12 +441,13 @@ def deletePelanggaranuser(request, pk):
     return render(request, 'userpage/delete_pelanggaran_user.html', context)
 
 def laporan(request):
-    pelanggaran = Pelanggaran.objects.all()
-    filterpelanggaran = PelanggaranFilter(request.GET, queryset=pelanggaran)
-    filter_pel = filterpelanggaran.qs
+    pembayaran = Pembayaran.objects.order_by('-id')
+    filterpembayaran = PembayaranFilter(request.GET, queryset=pembayaran)
+    filter_pel = filterpembayaran.qs
     context = {
         'menu' : 'laporan',
-        'filter_pln' : filterpelanggaran,
-        'pelanggaran' : filter_pel,
+        'page' : 'Halaman Laporan',
+        'filter_pln' : filterpembayaran,
+        'pembayaran' : filter_pel,
     }
     return render(request, 'data/formlaporan.html', context)    

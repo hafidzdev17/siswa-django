@@ -84,25 +84,21 @@
   /**************** PIE CHART *******************/
   var piedata = [
     {
-      label: "Siswa",
-      data: ["{{ siswa }}"],
+      label: "KMS",
+      data: ["{{ kms }}"],
       color: "#FF7F00",
     },
     {
-      label: "Kelas",
-      data: ["{{ kelas }}"],
+      label: "LKS",
+      data: ["{{ lks }}"],
       color: "#7571F9",
     },
     {
-      label: "Petugas",
-      data: ["{{ petugas }}"],
+      label: "Komputer",
+      data: ["{{ komputer }}"],
       color: "#ff5e5e",
     },
-    {
-      label: "Pembayaran",
-      data: ["{{ pembayaran }}"],
-      color: "#ff5ccc",
-    },
+  
   ];
 
   $.plot("#flotPie1", piedata, {
