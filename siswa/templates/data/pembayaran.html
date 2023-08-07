@@ -23,37 +23,29 @@
               </a>
             </div>
 
-            <form method="get">
-              <div class="row my-3">
-                <div class="col-4">
-                  {{ filter_pembayaran.form.nama| add_class:"form-control" }}
-                  </div>
-               <div class="col-2">
-                <button class="btn btn-primary" type="submit">
-                  Search
-                </button>
-               </div>
-              </div>
-            </form>
-
             {% if messages %}
-            {% for pesan  in messages  %}
-                <div class="alert alert-{{ pesan.tags }}" align="center">
-                    <b>{{ pesan }}</b>
-                </div>
+            {%for pesan in messages %}
+            <div class="alert alert-success alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button> {{ pesan }}
+            </div>
             {% endfor %}
-        {% endif %}
+            {% endif %}
+
          
             <div class="table-responsive">
-              <table class="table">
+              <table id="data-tabel" class="table">
+
                 <thead>
                   <tr>
                     <th>No</th>
                     <th>Nama Siswa</th>
                     <th>Pembayaran</th>
                     <th>Biaya</th>
+                    <th>Kategori Pembayaran</th>
+                    <th>Tanggal Pembayaran</th>
                     <th>Tahun</th>
-                    <th>Kelas</th>
+                    <th>Keterangan</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -62,18 +54,20 @@
                   <tr>
                     <td>{{ forloop.counter }}</td>
                     <td>{{ pembayaran.nama }}</td>
-                    <td>{{ pembayaran.pembayaran }}</td>
-                    <td>{{ pembayaran.biaya }}</td>
+                    <td>Rp.{{ pembayaran.pembayaran }}</td>
+                    <td>Rp.{{ pembayaran.biaya }}</td>
+                    <td>{{ pembayaran.kategori }}</td>
+                    <td>{{ pembayaran.tanggal }}</td>
                     <td>{{ pembayaran.tahun }}</td>
-                    <td>{{ pembayaran.kelas }}</td>
+                    <td>{{ pembayaran.keterangan }}</td>
                     <td>
                       <a
-                        class="btn btn-info btn-sm"
+                        class="btn btn-info btn-sm my-1"
                         href="{% url 'update_pembayaran' pembayaran.id %}"
                         >Edit</a
                       >
                       <a
-                        class="btn btn-danger btn-sm"
+                        class="btn btn-danger btn-sm my-1"
                         href="{% url 'delete_pembayaran' pembayaran.id %}"
                         >Hapus</a
                       >

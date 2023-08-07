@@ -5,9 +5,9 @@ from django.conf import settings
 
 urlpatterns = [
     path('', views.beranda, name='beranda'),
-    path('login/', views.loginPage, name='login'),
+    path('accounts/login/', views.loginPage, name='login'),
     path('logout/', views.logoutPage, name='logout'),
-    path('register/', views.registerPage, name='register'),
+    # path('register/', views.registerPage, name='register'),
 
     # kelas
     path('kelas', views.kelas, name='kelas'),
@@ -31,12 +31,6 @@ urlpatterns = [
     path('create_pembayaran/', views.create_pembayaran, name='create_pembayaran'),
     path('update_pembayaran/<int:pk>/', views.update_pembayaran, name='update_pembayaran'),
     path('delete_pembayaran/<str:pk>/', views.delete_pembayaran, name='delete_pembayaran'),
-
-    # rincian_pembayaran
-    path('rincian_pembayaran', views.rincian_pmb, name='rincian_pembayaran'),
-    path('create_rincian_pembayaran/', views.create_rincian, name='create_rincian'),
-    path('update_rincian_pembayaran/<int:pk>/', views.update_rincian, name='update_rincian'),
-    path('delete_rincian_pembayaran/<str:pk>/', views.delete_rincian, name='delete_rincian'),
 
     path('pelanggaran/', views.pelanggaran, name='pelanggaran'),
     path('inputpelanggaran/', views.inputpelanggaran, name='inputpelanggaran'),

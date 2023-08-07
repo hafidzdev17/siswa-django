@@ -2,7 +2,6 @@ from django import forms
 from django.forms import ModelForm, DateTimeInput
 from .models import *
 
-
 class KelasForm(ModelForm):
     class Meta:
         model = Kelas
@@ -63,37 +62,18 @@ class PembayaranForm(ModelForm):
         widgets = {
             'nama': forms.Select(attrs={'class': 'form-select'}),
             'pembayaran': forms.TextInput(attrs={'class': 'form-select'}),
+            'kategori': forms.Select(attrs={'class': 'form-select'}),
+            'tanggal': forms.DateInput(format = '%m-%d-%Y',attrs={'type': 'date'}),
             'biaya': forms.TextInput(attrs={'class': 'form-control'}),
             'tahun': forms.TextInput(attrs={'class': 'form-select'}),
-            'kelas': forms.Select(attrs={'class': 'form-select'}),
+            'keterangan': forms.Select(attrs={'class': 'form-select'}),
         }
         labels = {
             'nama' : 'Nama Siswa',
             'pembayaran': 'Pembayaran',
-            'biaya' : 'Biaya',
-            'tahun' : 'Tahun',
-            'kelas': 'Kelas',
-        }
-
-class RincianPembayaranForm(ModelForm):
-    class Meta:
-        model = RincianPembayaran
-        fields= '__all__'
-    
-        widgets = {
-            'nama_siswa': forms.Select(attrs={'class': 'form-select'}),
-            'kelas': forms.Select(attrs={'class': 'form-select'}),
-            'kategori': forms.Select(attrs={'class': 'form-select'}),
-            'tanggal': forms.DateInput(format = '%m-%d-%Y',attrs={'type': 'date'}),
-            'biaya': forms.TextInput(attrs={'class': 'form-control'}),
-            'keterangan': forms.Select(attrs={'class': 'form-select'}),
-        }
-        labels = {
-            'nama_siswa' : 'Nama Siswa',
-            'kelas': 'Kelas',
             'kategori': 'Kategori Pembayaran',
             'tanggal' : 'Tanggal Pembayaran',
             'biaya' : 'Biaya',
+            'tahun' : 'Tahun',
             'keterangan' : 'Keterangan',
         }
-

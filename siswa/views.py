@@ -10,8 +10,8 @@ from django.core.paginator import Paginator
 from django.contrib import messages
 from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
-# from django.contrib.auth.decorators import login_required
-# from .decorators import tolakhalaman_ini, ijinkan_pengguna, pilihan_login
+from .decorators import tolakhalaman_ini
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -36,9 +36,8 @@ def export_xls(request):
     response['Content-Disposition'] = 'attachment; filename=pelangaran.xls'
     return response
 
-# @login_required(login_url='login')
-# @ijinkan_pengguna(yang_diizinkan=['admin']) 
-# @pilihan_login
+
+@login_required
 def beranda(request):
     
     list_pelanggaran = Pelanggaran.objects.all()
@@ -57,15 +56,8 @@ def beranda(request):
     }
     return render(request, 'data/beranda.html', context)
 
-def registerPage(request):
-    context = {
-        'menu': 'register',
-        'page': 'Halaman Register',
-	
-    }
-    return render(request, 'data/register.html', context)
 
-# @tolakhalaman_ini
+@tolakhalaman_ini
 def loginPage(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -92,6 +84,7 @@ def logoutPage(request):
 
 
 # views kelas
+@login_required
 def kelas(request):
     kelas_data = Kelas.objects.all()
     context = {
@@ -102,6 +95,7 @@ def kelas(request):
     }
     return render(request, 'data/kelas.html', context)
 
+@login_required
 def create_kelas(request):
     form = KelasForm(request.POST or None, request.FILES or None)
     if form.is_valid():
@@ -115,6 +109,7 @@ def create_kelas(request):
     }
     return render(request, 'data/kelas_form.html', context)
 
+@login_required
 def update_kelas(request, pk):
     kelas = Kelas.objects.get(id=pk)
     form = KelasForm(request.POST or None, request.FILES or None, instance=kelas)
@@ -129,6 +124,7 @@ def update_kelas(request, pk):
     }
     return render(request, 'data/kelas_form.html', context)
 
+@login_required
 def delete_kelas(request, pk):
     kelas = Kelas.objects.get(id=pk)
     if request.method == 'POST':
@@ -144,6 +140,7 @@ def delete_kelas(request, pk):
 
 
 # views siswa
+@login_required
 def siswa(request):
     siswa_data = Siswa.objects.order_by('-id')
     context = {
@@ -154,7 +151,7 @@ def siswa(request):
     }
     return render(request, 'data/siswa.html', context)
 
-
+@login_required
 def create_siswa(request):
     form = SiswaForm(request.POST or None, request.FILES or None)
     if form.is_valid():
@@ -168,6 +165,8 @@ def create_siswa(request):
     }
     return render(request, 'data/siswa_form.html', context)
 
+
+@login_required
 def update_siswa(request, pk):
     siswa = Siswa.objects.get(id=pk)
     form = SiswaForm(request.POST or None, request.FILES or None, instance=siswa)
@@ -182,6 +181,7 @@ def update_siswa(request, pk):
     }
     return render(request, 'data/siswa_form.html', context)
 
+@login_required
 def delete_siswa(request, pk):
     siswa = Siswa.objects.get(id=pk)
     if request.method == 'POST':
@@ -195,7 +195,7 @@ def delete_siswa(request, pk):
     }
     return render(request, 'data/siswa_delete.html', context)
 
-
+@login_required
 # petugas
 def petugas(request):
     data = Petugas.objects.order_by('-id')
@@ -206,6 +206,7 @@ def petugas(request):
     }
     return render(request, 'data/petugas.html', context)
 
+@login_required
 def create_petugas(request):
     form = PetugasForm()
     petugas = PetugasForm(request.POST)
@@ -243,6 +244,7 @@ def create_petugas(request):
     }
     return render(request, 'data/petugas_form.html', context)
 
+@login_required
 def delete_petugas(request, pk):
     delete_petugas = Petugas.objects.get(id=pk)
     if request.method == 'POST':
@@ -259,16 +261,20 @@ def delete_petugas(request, pk):
 
 # pembayaran
 
+@login_required
 def pembayaran(request):
+    siswa_data = Siswa.objects.order_by('-id')
     pembayaran_data = Pembayaran.objects.order_by('-id')
     context = {
         'menu' : 'Form Pembayaran',
         'page' : 'Halaman Pembayaran',
         'pembayaran' : pembayaran_data,
-        'filter_pembayaran' : SiswaFilter
+        'siswa': siswa_data
     }
     return render(request, 'data/pembayaran.html', context)
 
+
+@login_required
 def create_pembayaran(request):
     form = PembayaranForm(request.POST or None, request.FILES or None)
     if form.is_valid():
@@ -282,6 +288,7 @@ def create_pembayaran(request):
     }
     return render(request, 'data/pembayaran_form.html', context)
 
+@login_required
 def update_pembayaran(request, pk):
     pembayaran = Pembayaran.objects.get(id=pk)
     form = PembayaranForm(request.POST or None, request.FILES or None, instance=pembayaran)
@@ -296,6 +303,7 @@ def update_pembayaran(request, pk):
     }
     return render(request, 'data/pembayaran_form.html', context)
 
+@login_required
 def delete_pembayaran(request, pk):
     pembayaran = Pembayaran.objects.get(id=pk)
     nama_siswa = pembayaran.nama.nama
@@ -311,59 +319,6 @@ def delete_pembayaran(request, pk):
         'nama_siswa': nama_siswa
     }
     return render(request, 'data/pembayaran_delete.html', context)
-
-# Rincian Pembayaran
-def rincian_pmb(request):
-    pembayaran = RincianPembayaran.objects.order_by('-id')
-    context = {
-        'menu' : 'Form Rincian Pembayaran',
-        'page' : 'Halaman Rincian Pembayaran',
-        'rincianpmb' : pembayaran,
-    }
-    return render(request, 'data/rincianpmb.html', context)
-
-def create_rincian(request):
-    form = RincianPembayaranForm(request.POST or None, request.FILES or None)
-    if form.is_valid():
-        form.save()
-        messages.success(request, 'Rincian Pembayaran Berhasil Ditambahkan.')
-        return redirect('rincian_pembayaran')
-    context = {
-        'menu' : 'Tambah Rincian Pembayaran',
-        'page' : 'Halaman Tambah Rincian Pembayaran',
-        'form': form
-    }
-    return render(request, 'data/rincianpmb_form.html', context)
-
-def update_rincian(request, pk):
-    pembayaran = RincianPembayaran.objects.get(id=pk)
-    form = RincianPembayaranForm(request.POST or None, request.FILES or None, instance=pembayaran)
-    if form.is_valid():
-        form.save()
-        messages.success(request, 'Rincian Pembayaran Berhasil Diupdate.')
-        return redirect('rincian_pembayaran')
-    context = {
-        'menu' : 'Edit Rincian Pembayaran',
-        'page' : 'Halaman Edit Rincian Pembayaran',
-        'form': form
-    }
-    return render(request, 'data/rincianpmb_form.html', context)
-
-def delete_rincian(request, pk):
-    pembayaran = RincianPembayaran.objects.get(id=pk)
-    nama_siswa = pembayaran.nama_siswa.nama
-
-    if request.method == 'POST':
-        pembayaran.delete()
-        messages.success(request, 'Rincian Pembayaran Berhasil Dihapus.')
-        return redirect('rincian_pembayaran')
-        
-    context = {
-        'menu':'Menu Delete Rincian Pembayaran',
-        'page':'Halaman Delete Rincian Pembayaran',
-        'nama_siswa': nama_siswa
-    }
-    return render(request, 'data/rincianpmb_delete.html', context)
 
 
 # @ijinkan_pengguna(yang_diizinkan=['admin']) 

@@ -42,11 +42,25 @@ class Siswa(models.Model):
         verbose_name_plural = "Siswa"
 
 class Pembayaran(models.Model):
+
+    Category = (
+        ('KMS', 'KMS'),
+        ('LKS', 'LKS'),
+        ('Komputer', 'Komputer'),
+    )
+
+    Keterangan = (
+        ('Lunas', 'Lunas'),
+        ('Belum Lunas', 'Belum Lunas'),
+    )
+
     nama = models.ForeignKey(Siswa, blank=False, null=True, on_delete=models.SET_NULL)
     pembayaran = models.CharField(max_length=100)
     biaya = models.CharField(max_length=100)
     tahun = models.CharField(max_length=100)
-    kelas = models.ForeignKey(Kelas, blank=False, null=True, on_delete=models.SET_NULL)
+    kategori = models.CharField(max_length=150, blank=True, null=False, choices=Category)
+    tanggal = models.DateField(auto_now=False, auto_now_add=False)
+    keterangan = models.CharField(max_length=150, blank=True, null=False, choices=Keterangan)
 
     def __str__(self):
         return self.nama
@@ -71,33 +85,6 @@ class Petugas(models.Model):
         return self.nama_petugas
     class Meta:
         verbose_name_plural = "Petugas"
-
-
-class RincianPembayaran(models.Model):
-
-    Category = (
-        ('KMS', 'KMS'),
-        ('LKS', 'LKS'),
-        ('Komputer', 'Komputer'),
-    )
-
-    Keterangan = (
-        ('Lunas', 'Lunas'),
-        ('Belum Lunas', 'Belum Lunas'),
-    )
-    
-    nama_siswa = models.ForeignKey(Siswa, blank=False, null=True, on_delete=models.SET_NULL)
-    kelas = models.ForeignKey(Kelas, blank=False, null=True, on_delete=models.SET_NULL)
-    kategori = models.CharField(max_length=150, blank=True, null=False, choices=Category)
-    tanggal = models.DateField(auto_now=False, auto_now_add=False)
-    biaya = models.CharField(max_length=100)
-    keterangan = models.CharField(max_length=150, blank=True, null=False, choices=Keterangan)
-    
-    def __str__(self):
-        return "%s" %(self.nama_siswa)
-
-    class Meta:
-        verbose_name_plural = "Rincian Pembayaran"
 
     
 class Pelanggaran(models.Model):
