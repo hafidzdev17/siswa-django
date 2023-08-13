@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap4',
     'widget_tweaks',
+    'dal',
+    'dal_select2',
 ]
 
 MIDDLEWARE = [

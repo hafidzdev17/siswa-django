@@ -12,8 +12,21 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.models import User
 from .decorators import tolakhalaman_ini
 from django.contrib.auth.decorators import login_required
+from dal import autocomplete
 # Create your views here.
 
+class SiswaAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated:
+            return Siswa.objects.none()
+
+        qs = Siswa.objects.all()
+
+        if self.q:
+            qs = qs.filter(nama__istartswith=self.q)
+
+        return qs
 
 def getfoto(request):
     santri = Santri.objects.get(id=request.GET.get('pk'))

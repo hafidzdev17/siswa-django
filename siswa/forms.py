@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import ModelForm, DateTimeInput
 from .models import *
+from dal import autocomplete
 
 class KelasForm(ModelForm):
     class Meta:
@@ -40,6 +41,7 @@ class SiswaForm(ModelForm):
             'tahun_akademik' : 'Tahun Akademik',
         }
 
+
 class PetugasForm(ModelForm):
 
     class Meta:
@@ -54,26 +56,28 @@ class PetugasForm(ModelForm):
             'no_telpon' : 'Nomer telepon',
         }
 
-class PembayaranForm(ModelForm):
+class PembayaranForm(forms.ModelForm):
+  
+    
     class Meta:
         model = Pembayaran
-        fields= '__all__'
+        fields = '__all__'
     
         widgets = {
-            'nama': forms.Select(attrs={'class': 'form-select'}),
+            'nama': autocomplete.ModelSelect2(url='autocomplete'),
             'pembayaran': forms.TextInput(attrs={'class': 'form-select'}),
             'kategori': forms.Select(attrs={'class': 'form-select'}),
-            'tanggal': forms.DateInput(format = '%m-%d-%Y',attrs={'type': 'date'}),
+            'tanggal': forms.DateInput(format='%m-%d-%Y', attrs={'type': 'date'}),
             'biaya': forms.TextInput(attrs={'class': 'form-control'}),
             'tahun': forms.TextInput(attrs={'class': 'form-select'}),
             'keterangan': forms.Select(attrs={'class': 'form-select'}),
         }
         labels = {
-            'nama' : 'Nama Siswa',
+            'nama': 'Nama Siswa',
             'pembayaran': 'Pembayaran',
             'kategori': 'Kategori Pembayaran',
-            'tanggal' : 'Tanggal Pembayaran',
-            'biaya' : 'Biaya',
-            'tahun' : 'Tahun',
-            'keterangan' : 'Keterangan',
+            'tanggal': 'Tanggal Pembayaran',
+            'biaya': 'Biaya',
+            'tahun': 'Tahun',
+            'keterangan': 'Keterangan',
         }

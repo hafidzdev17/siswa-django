@@ -1,94 +1,152 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>{{ page }}</title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'public/images/favicon.png' %}">
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="{% static 'public/images/favicon.png' %}"
+    />
     <!-- Pignose Calender -->
-    <link href="{% static 'public/plugins/pg-calendar/css/pignose.calendar.min.css' %}" rel="stylesheet">
+    <link
+      href="{% static 'public/plugins/pg-calendar/css/pignose.calendar.min.css' %}"
+      rel="stylesheet"
+    />
     <!-- Chartist -->
-    <link rel="stylesheet" href="{% static 'public/plugins/chartist/css/chartist.min.css' %}">
-    <link rel="stylesheet" href="{% static 'public/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css' %}">
-    <link href="{% static 'public/dataTables/datatables.min.css' %}" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="{% static 'public/plugins/chartist/css/chartist.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'public/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css' %}"
+    />
+    <link
+      href="{% static 'public/dataTables/datatables.min.css' %}"
+      rel="stylesheet"
+    />
     <!-- Custom Stylesheet -->
-    <link href="{% static 'public/css/style.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="{% static 'public/css/style.css' %}" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
+  </head>
 
-</head>
-
-<body>
-
+  <body>
     <div id="main-wrapper">
-
-        <div class="nav-header">
-            <div class="brand-logo">
-                <a href="#">
-                    <b class="logo-abbr"><img src="{% static 'public/images/logo.jpeg' %}" width="80" alt=""> </b>
-                    <span class="logo-compact"><img src="{% static 'public/images/logo.jpeg' %}" alt=""></span>
-                    <span class="brand-title">
-                        <img src="{% static 'public/images/logo.jpeg' %}" width="50px" height="50px" href="{% url 'beranda' %}" alt="">
-                    </span>
-                </a>
-            </div>
+      <div class="nav-header">
+        <div class="brand-logo">
+          <a href="#">
+            <b class="logo-abbr"
+              ><img
+                src="{% static 'public/images/logo.jpeg' %}"
+                width="80"
+                alt=""
+              />
+            </b>
+            <span class="logo-compact"
+              ><img src="{% static 'public/images/logo.jpeg' %}" alt=""
+            /></span>
+            <span class="brand-title">
+              <img
+                src="{% static 'public/images/logo.jpeg' %}"
+                width="50px"
+                height="50px"
+                href="{% url 'beranda' %}"
+                alt=""
+              />
+            </span>
+          </a>
         </div>
+      </div>
 
-        <div class="header bg-primary">
-            <div class="header-content clearfix">
-                <div class="nav-control">
-                    <div class="hamburger">
-                        <span class="toggle-icon"><i class="icon-menu"></i></span>
-                    </div>
-                </div>
-                <div class="header-right">
-                    <li class="icons d-none d-md-flex">
-                        <a class="log-user">
-                            <span class="text-white">Assalamualaikum, {{request.user.first_name }} {{ request.user.last_name }}</span> 
-                        </a>
+      <div class="header bg-primary">
+        <div class="header-content clearfix">
+          <div class="nav-control">
+            <div class="hamburger">
+              <span class="toggle-icon"><i class="icon-menu"></i></span>
+            </div>
+          </div>
+          <div class="header-right">
+            <li class="icons d-none d-md-flex">
+              <a class="log-user">
+                <span class="text-white"
+                  >Assalamualaikum, {{request.user.username }} </span
+                >
+              </a>
+            </li>
+            <li class="icons dropdown">
+              <div
+                class="user-img c-pointer position-relative"
+                data-toggle="dropdown"
+              >
+                <span class="activity active"></span>
+                <img
+                  src="{% static 'public/images/user/1.png' %}"
+                  height="40"
+                  width="40"
+                  alt=""
+                />
+              </div>
+              <div
+                class="drop-down dropdown-profile animated fadeIn dropdown-menu"
+              >
+                <div class="dropdown-content-body">
+                  <ul>
+                    <li>
+                      <a href="{% url 'logout' %}"
+                        ><i class="icon-key"></i> <span>Logout</span></a
+                      >
                     </li>
-                    <li class="icons dropdown">
-                        <div class="user-img c-pointer position-relative" data-toggle="dropdown">
-                            <span class="activity active"></span>
-                            <img src="{% static 'public/images/user/1.png' %}" height="40" width="40" alt="">
-                        </div>
-                        <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
-                            <div class="dropdown-content-body">
-                                <ul>
-                                    <li><a href="{% url 'logout' %}"><i class="icon-key"></i> <span>Logout</span></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
+                  </ul>
                 </div>
-            </div>
+              </div>
+            </li>
+          </div>
         </div>
-        {% include "navbar.html" %}
-        <div class="" style="background-size: cover; background-image: url('{% static 'public/images/sekolas.jpeg' %}')">
-            {% block content %}
-
-            {% endblock content %}
+      </div>
+      {% include "navbar.html" %}
+      <div
+        class=""
+        style="
+          background-size: cover;
+          background-image: url('{% static 'public/images/sekolas.jpeg' %}');
+        "
+      >
+        {% block content %} {% endblock content %}
+      </div>
+      {% comment %}
+      <div class="footer">
+        <div class="copyright">
+          <p>
+            Copyright &copy; Designed & Developed by
+            <a href="https://themeforest.net/user/quixlab">Quixlab</a> 2018
+          </p>
         </div>
-        {% comment %} <div class="footer">
-            <div class="copyright">
-                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Quixlab</a>
-                    2018</p>
-            </div>
-        </div> {% endcomment %}
-        <!--**********************************
+      </div>
+      {% endcomment %}
+      <!--**********************************
     Footer end
 ***********************************-->
     </div>
     <!--**********************************
 Main wrapper end
 ***********************************-->
-            {% block script %}
-
-            {% endblock script %}
+    {% block script %} {% endblock script %}
     <!--**********************************
 Scripts
 ***********************************-->
@@ -125,28 +183,28 @@ Scripts
     <script src="{% static 'public/plugins/flot/js/jquery.flot.resize.js' %}"></script>
     <script src="{% static 'public/plugins/flot/js/jquery.flot.spline.js' %}"></script>
     <script src="{% static 'public/plugins/flot/js/jquery.flot.init.js' %}"></script>
-    
+
+    <!--   -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <script>
-        $('#pelanggaran_table').dataTable({
-            dom : 'Bfrtip',
-            button : [
-                {
-                    extend : 'pdf',
-                    oriented : 'potrait',
-                    pageSize : 'Legal',
-                    title : 'Data_Pasien',
-                    download : 'open'
-                },
-                'excel','print'
-            ]
-        });
-        $('#data-tabel').dataTable();
+      $("#pelanggaran_table").dataTable({
+        dom: "Bfrtip",
+        button: [
+          {
+            extend: "pdf",
+            oriented: "potrait",
+            pageSize: "Legal",
+            title: "Data_Pasien",
+            download: "open",
+          },
+          "excel",
+          "print",
+        ],
+      });
+      $("#data-tabel").dataTable();
     </script>
 
-    {% block foto %}
-
-    {% endblock foto %}
-
-</body>
-
+    {% block foto %} {% endblock foto %}
+  </body>
 </html>
