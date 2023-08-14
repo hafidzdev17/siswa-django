@@ -73,7 +73,7 @@ class Anak(models.Model):
     jenis_kelamin = models.CharField(max_length=1, choices=GENDER_CHOICES, default='L')
     berat_badan = models.CharField(max_length=10, unique = False, null=False)
     tinggi_badan = models.CharField(max_length=10, unique = False, null=False)
-    tanggal_operasi = models.DateField(auto_now=True, auto_now_add=False)
+    tanggal_operasi = models.DateField(auto_now=False, auto_now_add=False)
     indikator = models.CharField(max_length=20, choices=INDIKATOR, default='Iya')
     status = models.CharField(max_length=20, choices=STATUS, default='Teratasi')
     posyandu = models.ForeignKey(Kelas, blank=False, null=True, on_delete=models.SET_NULL)
