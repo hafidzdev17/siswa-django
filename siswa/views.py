@@ -107,8 +107,8 @@ def logoutPage(request):
 def kelas(request):
     kelas_data = Kelas.objects.all()
     context = {
-        'menu' : 'Form Kelas',
-        'page' : 'Halaman Kelas',
+        'menu' : 'Form Posyandu',
+        'page' : 'Halaman Posyandu',
         'kelas' : kelas_data,
         'filter_kelas' : KelasFilter
     }
@@ -119,11 +119,11 @@ def create_kelas(request):
     form = KelasForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         form.save()
-        messages.success(request, 'Kelas berhasil ditambahkan.')
+        messages.success(request, 'Posyandu berhasil ditambahkan.')
         return redirect('kelas')
     context = {
-        'menu' : 'Tambah Kelas',
-        'page' : 'Halaman Tambah Kelas',
+        'menu' : 'Tambah Posyandu',
+        'page' : 'Halaman Tambah Posyandu',
         'form': form
     }
     return render(request, 'data/kelas_form.html', context)
@@ -134,11 +134,11 @@ def update_kelas(request, pk):
     form = KelasForm(request.POST or None, request.FILES or None, instance=kelas)
     if form.is_valid():
         form.save()
-        messages.success(request, 'Kelas berhasil diupdate.')
+        messages.success(request, 'Posyandu berhasil diupdate.')
         return redirect('kelas')
     context = {
-        'menu' : 'Edit Kelas',
-        'page' : 'Halaman Edit Kelas',
+        'menu' : 'Edit Posyandu',
+        'page' : 'Halaman Edit Posyandu',
         'form': form
     }
     return render(request, 'data/kelas_form.html', context)
@@ -161,10 +161,10 @@ def delete_kelas(request, pk):
 # views siswa
 @login_required
 def siswa(request):
-    siswa_data = Siswa.objects.order_by('-id')
+    siswa_data = Anak.objects.order_by('-id')
     context = {
-        'menu' : 'Form Siswa',
-        'page' : 'Halaman Siswa',
+        'menu' : 'Form Anak',
+        'page' : 'Halaman Anak',
         'siswa' : siswa_data,
         'filter_siswa' : SiswaFilter
     }
@@ -172,14 +172,14 @@ def siswa(request):
 
 @login_required
 def create_siswa(request):
-    form = SiswaForm(request.POST or None, request.FILES or None)
+    form = AnakForm(request.POST or None, request.FILES or None)
     if form.is_valid():
         form.save()
-        messages.success(request, 'Siswa Berhasil Ditambahkan.')
+        messages.success(request, 'Anak Berhasil Ditambahkan.')
         return redirect('siswa')
     context = {
-        'menu' : 'Tambah Siswa',
-        'page' : 'Halaman Tambah Siswa',
+        'menu' : 'Tambah Anak',
+        'page' : 'Halaman Tambah Anak',
         'form': form
     }
     return render(request, 'data/siswa_form.html', context)
@@ -187,29 +187,29 @@ def create_siswa(request):
 
 @login_required
 def update_siswa(request, pk):
-    siswa = Siswa.objects.get(id=pk)
-    form = SiswaForm(request.POST or None, request.FILES or None, instance=siswa)
+    siswa = Anak.objects.get(id=pk)
+    form = AnakForm(request.POST or None, request.FILES or None, instance=siswa)
     if form.is_valid():
         form.save()
-        messages.success(request, 'Siswa berhasil diupdate.')
+        messages.success(request, 'Anak berhasil diupdate.')
         return redirect('siswa')
     context = {
-        'menu' : 'Edit Siswa',
-        'page' : 'Halaman Edit Siswa',
+        'menu' : 'Edit Anak',
+        'page' : 'Halaman Edit Anak',
         'form': form
     }
     return render(request, 'data/siswa_form.html', context)
 
 @login_required
 def delete_siswa(request, pk):
-    siswa = Siswa.objects.get(id=pk)
+    siswa = Anak.objects.get(id=pk)
     if request.method == 'POST':
         siswa.delete()
-        messages.success(request, 'Siswa berhasil dihapus.')
+        messages.success(request, 'Anak berhasil dihapus.')
         return redirect('siswa')
     context = {
-        'menu':'Menu Delete Siswa',
-        'page':'Halaman Delete Siswa',
+        'menu':'Menu Delete Anak',
+        'page':'Halaman Delete Anak',
         'siswa': siswa
     }
     return render(request, 'data/siswa_delete.html', context)
@@ -454,13 +454,13 @@ def deletePelanggaranuser(request, pk):
     return render(request, 'userpage/delete_pelanggaran_user.html', context)
 
 def laporan(request):
-    pembayaran = Pembayaran.objects.order_by('-id')
+    pembayaran = Anak.objects.order_by('-id')
     filterpembayaran = PembayaranFilter(request.GET, queryset=pembayaran)
     filter_pel = filterpembayaran.qs
     context = {
         'menu' : 'laporan',
         'page' : 'Halaman Laporan',
         'filter_pln' : filterpembayaran,
-        'pembayaran' : filter_pel,
+        'siswa' : filter_pel,
     }
     return render(request, 'data/formlaporan.html', context)    
