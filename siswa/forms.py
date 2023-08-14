@@ -56,7 +56,7 @@ class PetugasForm(ModelForm):
             'status': forms.RadioSelect(attrs={'class': 'form-check-input'}),
         }
         labels = {
-            'nama_petugas' : 'Nama Petugas',
+            'nama_petugas' : 'Nama Admin',
             'no_telpon' : 'Nomer telepon',
         }
 

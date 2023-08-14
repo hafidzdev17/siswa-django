@@ -23,9 +23,9 @@ urlpatterns = [
     path('delete_anak/<int:pk>/', views.delete_siswa, name='delete_siswa'),
 
     # petugas
-    path('petugas', views.petugas, name='petugas'),
-    path('create_petugas', views.create_petugas, name='create_petugas'),
-    path('delete_petugas/<str:pk>', views.delete_petugas, name='delete_petugas'),
+    path('admin', views.petugas, name='petugas'),
+    path('create_admin', views.create_petugas, name='create_petugas'),
+    path('delete_admin/<str:pk>', views.delete_petugas, name='delete_petugas'),
 
     path('laporan/', views.laporan, name='laporan'),
     path('getfoto/', views.getfoto, name='getfoto'),

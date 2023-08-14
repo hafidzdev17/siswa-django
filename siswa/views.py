@@ -53,10 +53,11 @@ def export_xls(request):
 @login_required
 def beranda(request):
     
-    pembayaran = Pembayaran.objects.all()
-    total_kms =  pembayaran.filter(kategori='KMS').count()
-    total_lks = pembayaran.filter(kategori='LKS').count()
-    total_komputer = pembayaran.filter(kategori='Komputer').count()
+    anak = Anak.objects.all()
+    total_kms =  anak.filter(indikator='Iya').count()
+    total_lks = anak.filter(indikator='Tidak').count()
+    total_komputer = anak.filter(status='Teratasi').count()
+    total_komputers = anak.filter(status='Sedang Diatasi').count()
     total_siswa = Anak.objects.count()
     total_kelas = Kelas.objects.count()
     total_petugas = Petugas.objects.count()
@@ -68,6 +69,7 @@ def beranda(request):
         'kms': total_kms,
         'lks': total_lks,
         'komputer': total_komputer,
+        'komputers': total_komputers,
         'siswa' : total_siswa,
         'kelas' : total_kelas,
         'petugas' : total_petugas,
@@ -219,8 +221,8 @@ def delete_siswa(request, pk):
 def petugas(request):
     data = Petugas.objects.order_by('-id')
     context ={
-        "menu" : 'Petugas',
-        "page" : 'Halaman Petugas',
+        "menu" : 'Admin',
+        "page" : 'Halaman Admin',
         'petugas' : data
     }
     return render(request, 'data/petugas.html', context)
@@ -251,13 +253,13 @@ def create_petugas(request):
         createPetugas = petugas.save()
         createPetugas.user = user
         createPetugas.save()
-        messages.success(request, 'petugas berhasil ditambahkan.')
+        messages.success(request, 'admin berhasil ditambahkan.')
         
         return redirect('petugas')
 
     context ={
-        "menu" : 'Input Petugas',
-        "page" : 'Halaman Petugas',
+        "menu" : 'Input Admin',
+        "page" : 'Halaman Admin',
         "form" : form
         
     }
@@ -268,11 +270,11 @@ def delete_petugas(request, pk):
     delete_petugas = Petugas.objects.get(id=pk)
     if request.method == 'POST':
         delete_petugas.delete()
-        messages.success(request, 'petugas berhasil dihapus.')
+        messages.success(request, 'admin berhasil dihapus.')
         return redirect ('petugas')
     context = {
-        'menu':'Menu Delete Petugas',
-        'page':'Halaman Delete Petugas',
+        'menu':'Menu Delete Admin',
+        'page':'Halaman Delete Admin',
         'petugas': delete_petugas
     }
     return render(request, 'data/petugas_delete.html', context)
