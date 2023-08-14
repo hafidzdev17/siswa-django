@@ -57,7 +57,7 @@ def beranda(request):
     total_kms =  pembayaran.filter(kategori='KMS').count()
     total_lks = pembayaran.filter(kategori='LKS').count()
     total_komputer = pembayaran.filter(kategori='Komputer').count()
-    total_siswa = Siswa.objects.count()
+    total_siswa = Anak.objects.count()
     total_kelas = Kelas.objects.count()
     total_petugas = Petugas.objects.count()
     total_pembayaran = Pembayaran.objects.count()
