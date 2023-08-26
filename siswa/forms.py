@@ -67,8 +67,8 @@ class PembayaranForm(forms.ModelForm):
             'nama': autocomplete.ModelSelect2(url='autocomplete'),
             'pembayaran': forms.TextInput(attrs={'class': 'form-select'}),
             'kategori': forms.Select(attrs={'class': 'form-select'}),
-            'tanggal': forms.DateInput(format='%m-%d-%Y', attrs={'type': 'date'}),
-            'biaya': forms.TextInput(attrs={'class': 'form-control'}),
+            'tanggal': forms.DateInput(attrs={'type': 'date'}),
+            'biaya': autocomplete.ModelSelect2(url='autocompletes'),
             'tahun': forms.TextInput(attrs={'class': 'form-select'}),
             'keterangan': forms.Select(attrs={'class': 'form-select'}),
         }
@@ -77,7 +77,7 @@ class PembayaranForm(forms.ModelForm):
             'pembayaran': 'Pembayaran',
             'kategori': 'Kategori Pembayaran',
             'tanggal': 'Tanggal Pembayaran',
-            'biaya': 'Biaya',
+            'biaya': 'Tagihan Pembayaran',
             'tahun': 'Tahun',
             'keterangan': 'Keterangan',
         }

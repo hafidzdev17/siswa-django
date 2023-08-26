@@ -45,9 +45,31 @@
                                                 cache: true,
                                             },
                                         });
+                                        jQuery("#id_biaya").select2({
+                                            placeholder: "Select a tagihan",
+                                            minimumInputLength: 2,
+                                            ajax: {
+                                                url: "{% url 'autocompletes' %}",
+                                                dataType: "json",
+                                                delay: 250,
+                                                data: function (params) {
+                                                    return {
+                                                        q: params.term,
+                                                        page: params.page,
+                                                    };
+                                                },
+                                                processResults: function (data, params) {
+                                                    return {
+                                                        results: data,
+                                                    };
+                                                },
+                                                cache: true,
+                                            },
+                                        });
                                     });
 
                                 </script>
+                                
                             </div>
                             <div class="border-top">
                                 <div class="card-body">

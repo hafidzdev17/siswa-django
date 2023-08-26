@@ -202,7 +202,11 @@ Scripts
           "print",
         ],
       });
-      $("#data-tabel").dataTable();
+      $("#data-tabel").dataTable({
+        search: {
+            caseInsensitive: true  // Aktifkan pencarian case-insensitive
+        }
+      });
     </script>
 
     {% block foto %} {% endblock foto %}

@@ -41,6 +41,17 @@ class Siswa(models.Model):
     class Meta:
         verbose_name_plural = "Siswa"
 
+class Biaya(models.Model):
+    
+    biaya = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return 'Rp.' + self.biaya
+
+    class Meta:
+        verbose_name_plural = "Biaya"
+    
+
 class Pembayaran(models.Model):
 
     Category = (
@@ -56,9 +67,9 @@ class Pembayaran(models.Model):
 
     nama = models.ForeignKey(Siswa, blank=False, null=True, on_delete=models.SET_NULL)
     pembayaran = models.CharField(max_length=100)
-    biaya = models.CharField(max_length=100)
-    tahun = models.CharField(max_length=100)
     kategori = models.CharField(max_length=150, blank=True, null=False, choices=Category)
+    biaya = models.ForeignKey(Biaya, blank=False, null=True, on_delete=models.SET_NULL)
+    tahun = models.CharField(max_length=100)
     tanggal = models.DateField(auto_now=False, auto_now_add=False)
     keterangan = models.CharField(max_length=150, blank=True, null=False, choices=Keterangan)
 

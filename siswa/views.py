@@ -28,6 +28,19 @@ class SiswaAutocomplete(autocomplete.Select2QuerySetView):
 
         return qs
 
+class BiayaAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated:
+            return Biaya.objects.none()
+
+        qs = Biaya.objects.all()
+
+        if self.q:
+            qs = qs.filter(biaya__istartswith=self.q)
+
+        return qs
+
 def getfoto(request):
     santri = Santri.objects.get(id=request.GET.get('pk'))
     foto = santri.foto.name

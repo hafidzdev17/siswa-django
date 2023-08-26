@@ -2,7 +2,7 @@ from django.urls import path
 from .import views
 from django.conf.urls.static import static
 from django.conf import settings
-from .views import SiswaAutocomplete
+from .views import SiswaAutocomplete, BiayaAutocomplete
 
 urlpatterns = [
     path('', views.beranda, name='beranda'),
@@ -29,6 +29,7 @@ urlpatterns = [
 
     # pembayaran
     path('autocomplete/', SiswaAutocomplete.as_view(), name='autocomplete'),
+    path('autocompletes/', BiayaAutocomplete.as_view(), name='autocompletes'),
     path('pembayaran', views.pembayaran, name='pembayaran'),
     path('create_pembayaran/', views.create_pembayaran, name='create_pembayaran'),
     path('update_pembayaran/<int:pk>/', views.update_pembayaran, name='update_pembayaran'),
