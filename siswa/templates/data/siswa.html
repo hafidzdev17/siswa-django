@@ -19,7 +19,7 @@
                 type="button"
                 class="btn btn-rounded btn-outline-secondary fa-fa fa-plus"
               >
-                Tambah Siswa
+                Tambah Anak
               </a>
             </div>
             
@@ -37,14 +37,15 @@
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>NISN</th>
                     <th>Nama</th>
-                    <th>Jenis Kelamin</th>
-                    <th>Alamat</th>
                     <th>TTL</th>
-                    <th>Kelas</th>
-                    <th>Tahun Akademik</th>
-                    <th>Foto</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Berat Badan</th>
+                    <th>Tinggi Badan</th>
+                    <th>Tanggal Operasi</th>
+                    <th>Indikator</th>
+                    <th>Status</th>
+                    <th>Posyandu</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -52,20 +53,22 @@
                   {% for siswa in siswa %}
                   <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td>{{ siswa.nisn }}</td>
                     <td>{{ siswa.nama }}</td>
-                    <td>{% if siswa.jenis_kelamin == 'L' %}Laki-Laki{% else %}Perempuan{% endif %}</td>
-                    <td>{{ siswa.alamat }}</td>
                     <td>{{ siswa.ttl }}</td>
-                    <td>{{ siswa.kelas }}</td>
-                    <td>{{ siswa.tahun_akademik }}</td>
-                    <td>
+                    <td>{% if siswa.jenis_kelamin == 'L' %}Laki-Laki{% else %}Perempuan{% endif %}</td>
+                    <td>{{ siswa.berat_badan }}</td>
+                    <td>{{ siswa.tinggi_badan }}</td>
+                    <td>{{ siswa.tanggal_operasi }}</td>
+                    <td>{{ siswa.indikator }}</td>
+                    <td>{{ siswa.status }}</td>
+                    <td>{{ siswa.posyandu }}</td>
+                    <!-- <td>
                       <img
                         src="{% static 'images/' %}{{siswa.foto.url}}"
                         alt="Foto Siswa"
                         height="50"
                       />
-                    </td>
+                    </td> -->
                     <td>
                       <a
                         class="btn btn-info btn-sm my-1"

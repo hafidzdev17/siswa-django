@@ -16,24 +16,24 @@ $(document).ready(function() {
         type: "line",
         width: "100%",
         height: "50",
-        lineColor: "#7571F9",
+        lineColor: "#2dce89",
         fillColor: "rgba(144, 104, 190, 0.2)",
-        minSpotColor: "#7571F9",
-        maxSpotColor: "#7571F9",
+        minSpotColor: "#2dce89",
+        maxSpotColor: "#2dce89",
         highlightLineColor: "rgba(0, 0, 0, 0.2)",
-        highlightSpotColor: "#7571F9"
+        highlightSpotColor: "#2dce89"
     });
 
     $("#sparkline9").sparkline([27, 31, 35, 28, 45, 52, 24, 4, 50, 11, 54, 49, 72, 59, 75], {
         type: "line",
         width: "100%",
         height: "50",
-        lineColor: "#7571F9",
-        fillColor: "#7571F9",
-        minSpotColor: "#7571F9",
-        maxSpotColor: "#7571F9",
+        lineColor: "#2dce89",
+        fillColor: "#2dce89",
+        minSpotColor: "#2dce89",
+        maxSpotColor: "#2dce89",
         highlightLineColor: "rgba(0, 0, 0, 0.2)",
-        highlightSpotColor: "#7571F9"
+        highlightSpotColor: "#2dce89"
     });
 
 

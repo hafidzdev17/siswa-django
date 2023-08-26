@@ -5,7 +5,7 @@
       <div class="col-lg-3 col-sm-6">
         <div class="card gradient-1">
           <div class="card-body">
-            <h3 class="card-title text-white">Siswa</h3>
+            <h3 class="card-title text-white">Anak</h3>
             <div class="d-inline-block">
               <h1 class="text-white">{{ siswa }}</h1>
               <p class="text-white mb-0"></p>
@@ -19,7 +19,7 @@
       <div class="col-lg-3 col-sm-6">
         <div class="card gradient-2">
           <div class="card-body">
-            <h3 class="card-title text-white">Kelas</h3>
+            <h3 class="card-title text-white">Posyandu</h3>
             <div class="d-inline-block">
               <h1 class="text-white">{{ kelas }}</h1>
               <p class="text-white mb-0"></p>
@@ -44,7 +44,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-3 col-sm-6">
+      <!-- <div class="col-lg-3 col-sm-6">
         <div class="card gradient-4">
           <div class="card-body">
             <h3 class="card-title text-white">Total Pembayaran</h3>
@@ -57,25 +57,25 @@
             ></span>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="row">
       <div class="col-lg-6">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title mb-3">Persentase Pembayaran</h4>
+            <h4 class="card-title mb-3">Persentase Stunting</h4>
             <div id="flotPie1" class="flot-chart"></div>
           </div>
         </div>
       </div>
-      <div class="col-lg-6">
+      <!-- <div class="col-lg-6">
         <div class="card">
           <div class="card-body">
             <h4 class="card-title mb-3"></h4>
             <div id="flotBar1" class="flot-chart"></div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
@@ -84,19 +84,24 @@
   /**************** PIE CHART *******************/
   var piedata = [
     {
-      label: "KMS",
+      label: "Stunting",
       data: ["{{ kms }}"],
       color: "#FF7F00",
     },
     {
-      label: "LKS",
+      label: "Tidak Stunting",
       data: ["{{ lks }}"],
-      color: "#7571F9",
+      color: "#2dce89",
     },
     {
-      label: "Komputer",
+      label: "Teratasi",
       data: ["{{ komputer }}"],
       color: "#ff5e5e",
+    },
+    {
+      label: "Sedang Diatasi",
+      data: ["{{ komputers }}"],
+      color: "#ffbb00",
     },
   
   ];

@@ -13,32 +13,36 @@ class KelasForm(ModelForm):
             'status_kelas': forms.RadioSelect(attrs={'class': 'form-check-input'}),
         }
         labels = {
-            'nama_kelas' : 'Nama Kelas',
-            'status_kelas': 'Status Kelas',
+            'nama_kelas' : 'Nama Posyandu',
+            'status_kelas': 'Status',
         }
 
-class SiswaForm(ModelForm):
+class AnakForm(ModelForm):
     class Meta:
-        model = Siswa
+        model = Anak
         fields= '__all__'
     
         widgets = {
-            'kelas': forms.Select(attrs={'class': 'form-select'}),
             'nama': forms.TextInput(attrs={'class': 'form-select'}),
+            'ttl': forms.DateInput(attrs={'type': 'date'}),
             'jenis_kelamin': forms.RadioSelect(attrs={'class': 'form-check-input'}),
-            'nisn': forms.TextInput(attrs={'class': 'form-select'}),
-            'alamat': forms.TextInput(attrs={'class': 'form-control'}),
-            'ttl': forms.DateInput(format = '%m-%d-%Y',attrs={'type': 'date'}),
-            'tahun_akademik': forms.TextInput(attrs={'class': 'form-select'}),
+            'tanggal_operasi': forms.DateInput(attrs={'type': 'date'}),
+            'berat_badan': forms.TextInput(attrs={'class': 'form-select'}),
+            'tinggi_badan': forms.TextInput(attrs={'class': 'form-select'}),
+            'indikator': forms.RadioSelect(attrs={'class': 'form-check-input'}),
+            'status': forms.RadioSelect(attrs={'class': 'form-check-input'}),
+            'posyandu': forms.Select(attrs={'class': 'form-select'}),
         }
         labels = {
-            'kelas': 'Kelas',
             'nama' : 'Nama Lengkap',
-            'jenis_kelamin' : 'Jenis Kelamin',
-            'nisn': 'NISN',
-            'alamat' : 'Alamat',
             'ttl': 'Tanggal lahir',
-            'tahun_akademik' : 'Tahun Akademik',
+            'jenis_kelamin' : 'Jenis Kelamin',
+            'berat_badan': 'Berat Badan',
+            'tinggi_badan': 'Tinggi Badan',
+            'tanggal_operasi': 'Tanggal Operasi',
+            'indikator' : 'Indikator',
+            'status' : 'Status',
+            'posyandu' : 'Posyandu',
         }
 
 
@@ -52,7 +56,7 @@ class PetugasForm(ModelForm):
             'status': forms.RadioSelect(attrs={'class': 'form-check-input'}),
         }
         labels = {
-            'nama_petugas' : 'Nama Petugas',
+            'nama_petugas' : 'Nama Admin',
             'no_telpon' : 'Nomer telepon',
         }
 
