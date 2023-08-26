@@ -23,13 +23,13 @@
             }, {
                 label: "Saikot",
                 data: [0, 30, 5, 3, 15, 5, 0],
-                backgroundColor: '#7571F9',
-                borderColor: '#7571F9',
+                backgroundColor: '#2dce89',
+                borderColor: '#2dce89',
                 borderWidth: 0.5,
                 pointStyle: 'circle',
                 pointRadius: 5,
                 pointBorderColor: 'transparent',
-                pointBackgroundColor: '#7571F9',
+                pointBackgroundColor: '#2dce89',
             }]
         },
         options: {
@@ -98,12 +98,12 @@
                 label: "Clothes",
                 data: [0, 10, 20, 10, 25, 15, 150],
                 backgroundColor: 'transparent',
-                borderColor: '#7571F9',
+                borderColor: '#2dce89',
                 borderWidth: 3,
                 pointStyle: 'circle',
                 pointRadius: 5,
                 pointBorderColor: 'transparent',
-                pointBackgroundColor: '#7571F9',
+                pointBackgroundColor: '#2dce89',
 
             }, {
                 label: "Foods",
